@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DangNhap">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        style="@style/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ĐĂNG NHẬP" />
+
+    <EditText
+        android:id="@+id/edtsdt"
+        style="@style/edt"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại" />
+
+    <EditText
+        android:id="@+id/edtmk"
+        style="@style/edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập password"
+        android:inputType="textPassword"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnquanly"
+            style="@style/btn"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+
+            android:text="QUẢN LÝ" />
+
+        <Button
+            android:id="@+id/btnbanhang"
+            style="@style/btn"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:text="BÁN HÀNG" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvquenmatkhau"
+        style="@style/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:text="Quên mật khẩu?" />
+</LinearLayout>

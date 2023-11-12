@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "855172959355",
+    "project_id": "vinovista-ae7f9",
+    "storage_bucket": "vinovista-ae7f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855172959355:android:23134f3ad59f4777ce26de",
+        "android_client_info": {
+          "package_name": "com.example.vinovista"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ8k_2q9iUEp3vc250PL5ND4nHmQYc_XQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
