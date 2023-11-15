@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.vinovista.Fragment.Fragment_HoaDon;
 import com.example.vinovista.Fragment.Fragment_NhanVien;
 import com.example.vinovista.Fragment.Fragment_SanPham;
 import com.example.vinovista.Fragment.Fragment_TaiKhoan;
 import com.example.vinovista.Fragment.Fragment_ThongKe;
-import com.example.vinovista.Fragment.Fragment_TrangChu;
 
 public class Menu_Adapter extends FragmentStateAdapter {
     public Menu_Adapter(@NonNull FragmentActivity fragmentActivity) {
@@ -21,7 +21,7 @@ public class Menu_Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new Fragment_TrangChu();
+                return new Fragment_HoaDon();
             case 1:
                 return new Fragment_NhanVien();
             case 2:
