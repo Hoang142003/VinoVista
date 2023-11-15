@@ -65,4 +65,23 @@
         <item name="android:background">@drawable/btntieptuc</item>
 
     </style>
+    <style name="button">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:background">@drawable/buttonselec</item>
+    </style>
+    <style name="edtSearch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/edtsearch</item>
+    </style>
+    <style name="imgbuttonadd">
+        <item name="android:layout_marginTop">35dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/buttonselec</item>
+    </style>
 </resources>
