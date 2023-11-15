@@ -35,6 +35,14 @@ public class NhanVien implements Serializable {
     public NhanVien() {
     }
 
+    public String getIdLoaiNhanVien() {
+        return idLoaiNhanVien;
+    }
+
+    public void setIdLoaiNhanVien(String idLoaiNhanVien) {
+        this.idLoaiNhanVien = idLoaiNhanVien;
+    }
+
     public NhanVien(String soDienThoai, String matKhau, String diaChi, String anh, String hoTen, String idLoaiNhanVien, double luong) {
         this.soDienThoai = soDienThoai;
         this.matKhau = matKhau;

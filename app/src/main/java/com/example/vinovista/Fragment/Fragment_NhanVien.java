@@ -3,11 +3,14 @@ package com.example.vinovista.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.vinovista.Adapter.adapter_NhanVien;
 import com.example.vinovista.R;
 
 /**
@@ -57,10 +60,24 @@ public class Fragment_NhanVien extends Fragment {
         }
     }
 
+    RecyclerView rcvDanhSachNhanVien;
+    private adapter_NhanVien adapter;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__nhan_vien, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment__nhan_vien, container, false);
+        setControl(view);
+        adapter = new adapter_NhanVien(getContext());
+        setEvent();
+        Log.e("soLuong",adapter.getItemCount()+"");
+
+        return view;
+    }
+
+    private void setEvent() {
+    }
+
+    private void setControl(View view) {
+rcvDanhSachNhanVien=view.findViewById(R.id.rcvDanhSachNhanVien);
     }
 }
