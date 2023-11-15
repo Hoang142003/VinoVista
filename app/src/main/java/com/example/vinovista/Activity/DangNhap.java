@@ -1,7 +1,5 @@
 package com.example.vinovista.Activity;
 
-import static com.example.vinovista.Adapter.PasswordEncoder.generateSecretKey;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.vinovista.Adapter.PasswordEncoder;
 import com.example.vinovista.Model.LoaiNhanVien;
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
@@ -24,8 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import javax.crypto.SecretKey;
 
 public class DangNhap extends AppCompatActivity {
     TextView tvquenmatkhau;
@@ -86,34 +81,27 @@ public class DangNhap extends AppCompatActivity {
                                         if (snapshot.exists()) {
                                             NhanVien nhanVien = snapshot.getValue(NhanVien.class);
                                             if (nhanVien.getIdLoaiNhanVien().equals(loaiNhanVien.getIdLoaiNhanVien())) {
-                                                SecretKey secretKey = null;
-                                                try {
-                                                    secretKey = generateSecretKey();
-                                                    if (nhanVien.getMatKhau().equals(PasswordEncoder.encrypt(edtmk.getText().toString(),secretKey))) {
-                                                        btnbanhang.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        tvquenmatkhau.setVisibility(View.VISIBLE);
-                                                        pb.setVisibility(View.GONE);
-                                                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putString(id_staff, nhanVien.getSoDienThoai());
-                                                        editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
-                                                        editor.apply();
-                                                        Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
-                                                        startActivity(intent);
-                                                    } else {
-                                                        btnbanhang.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        tvquenmatkhau.setVisibility(View.VISIBLE);
-                                                        pb.setVisibility(View.GONE);
-                                                        Toast.makeText(DangNhap.this, "Sai mật khẩu!!!", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                } catch (Exception e) {
-                                                    throw new RuntimeException(e);
+                                                if (nhanVien.getMatKhau().equals(edtmk.getText().toString())) {
+                                                    btnbanhang.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    tvquenmatkhau.setVisibility(View.VISIBLE);
+                                                    pb.setVisibility(View.GONE);
+                                                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    editor.putString(id_staff, nhanVien.getSoDienThoai());
+                                                    editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
+                                                    editor.apply();
+                                                    Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
+                                                    startActivity(intent);
+                                                } else {
+                                                    btnbanhang.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    tvquenmatkhau.setVisibility(View.VISIBLE);
+                                                    pb.setVisibility(View.GONE);
+                                                    Toast.makeText(DangNhap.this, "Sai mật khẩu!!!", Toast.LENGTH_SHORT).show();
                                                 }
-
                                             } else {
                                                 btnbanhang.setVisibility(View.VISIBLE);
                                                 btnquanly.setVisibility(View.VISIBLE);
@@ -188,32 +176,26 @@ public class DangNhap extends AppCompatActivity {
                                         if (snapshot.exists()) {
                                             NhanVien nhanVien = snapshot.getValue(NhanVien.class);
                                             if (nhanVien.getIdLoaiNhanVien().equals(loaiNhanVien.getIdLoaiNhanVien())) {
-                                                SecretKey secretKey = null;
-                                                try {
-                                                    secretKey = generateSecretKey();
-                                                    if (nhanVien.getMatKhau().equals(PasswordEncoder.encrypt(edtmk.getText().toString(),secretKey))) {
-                                                        btnbanhang.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        tvquenmatkhau.setVisibility(View.VISIBLE);
-                                                        pb.setVisibility(View.GONE);
-                                                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putString(id_staff, nhanVien.getSoDienThoai());
-                                                        editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
-                                                        editor.apply();
-                                                        Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
-                                                        startActivity(intent);
-                                                    } else {
-                                                        btnbanhang.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        btnquanly.setVisibility(View.VISIBLE);
-                                                        tvquenmatkhau.setVisibility(View.VISIBLE);
-                                                        pb.setVisibility(View.GONE);
-                                                        Toast.makeText(DangNhap.this, "Sai mật khẩu!!!", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                } catch (Exception e) {
-                                                    throw new RuntimeException(e);
+                                                if (nhanVien.getMatKhau().equals(edtmk.getText().toString())) {
+                                                    btnbanhang.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    tvquenmatkhau.setVisibility(View.VISIBLE);
+                                                    pb.setVisibility(View.GONE);
+                                                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    editor.putString(id_staff, nhanVien.getSoDienThoai());
+                                                    editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
+                                                    editor.apply();
+                                                    Intent intent = new Intent(DangNhap.this, DangNhap.class);
+                                                    startActivity(intent);
+                                                } else {
+                                                    btnbanhang.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    btnquanly.setVisibility(View.VISIBLE);
+                                                    tvquenmatkhau.setVisibility(View.VISIBLE);
+                                                    pb.setVisibility(View.GONE);
+                                                    Toast.makeText(DangNhap.this, "Sai mật khẩu!!!", Toast.LENGTH_SHORT).show();
                                                 }
                                             } else {
                                                 btnbanhang.setVisibility(View.VISIBLE);
