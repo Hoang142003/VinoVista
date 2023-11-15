@@ -3,6 +3,7 @@ package com.example.vinovista.Model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SanPham implements Serializable {
     String idSanPham, tenSanPham, moTa, idDanhMuc,anhSanPham;
@@ -19,6 +20,19 @@ public class SanPham implements Serializable {
         result.put("soLuongDaBan", soLuongDaBan);
 
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SanPham)) return false;
+        SanPham sanPham = (SanPham) o;
+        return getIdSanPham().equals(sanPham.getIdSanPham());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdSanPham());
     }
 
     @Override
