@@ -20,12 +20,14 @@
         android:text="MẬT KHẨU MỚI" />
 
     <EditText
+        android:id="@+id/edt_mk"
         style="@style/edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nhập mật khẩu mới"
         android:inputType="textPassword"/>
     <EditText
+        android:id="@+id/edk_nhaplaimk"
         style="@style/edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,5 +40,11 @@
         android:layout_height="wrap_content"
         android:text="Thay đổi"
         android:layout_gravity="center"/>
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
 </LinearLayout>

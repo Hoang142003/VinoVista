@@ -3,10 +3,66 @@ package com.example.vinovista.Model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SanPham implements Serializable {
-    String idSanPham, tenSanPham, moTa, idDanhMuc, anhSanPham;
+    String idSanPham, tenSanPham, moTa, idDanhMuc,anhSanPham;
     int soLuong, giaGoc, giaSale, soLuongDaBan;
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("tenSanPham", tenSanPham);
+        result.put("moTa", moTa);
+        result.put("idDanhMuc", idDanhMuc);
+        result.put("soLuong", soLuong);
+        result.put("giaGoc", giaGoc);
+        result.put("giaSale", giaSale);
+        result.put("soLuongDaBan", soLuongDaBan);
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SanPham)) return false;
+        SanPham sanPham = (SanPham) o;
+        return getIdSanPham().equals(sanPham.getIdSanPham());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdSanPham());
+    }
+
+    @Override
+    public String toString() {
+        return "sanPham{" +
+                "idSanPham='" + idSanPham + '\'' +
+                ", tenSanPham='" + tenSanPham + '\'' +
+                ", moTa='" + moTa + '\'' +
+                ", idDanhMuc='" + idDanhMuc + '\'' +
+                ", soLuong=" + soLuong +
+                ", giaGoc=" + giaGoc +
+                ", giaSale=" + giaSale +
+                ", soLuongDaBan=" + soLuongDaBan +
+                '}';
+    }
+
+    public SanPham() {
+    }
+
+    public SanPham(String idSanPham, String tenSanPham, String moTa, String idDanhMuc, String anhSanPham, int soLuong, int giaGoc, int giaSale, int soLuongDaBan) {
+        this.idSanPham = idSanPham;
+        this.tenSanPham = tenSanPham;
+        this.moTa = moTa;
+        this.idDanhMuc = idDanhMuc;
+        this.anhSanPham = anhSanPham;
+        this.soLuong = soLuong;
+        this.giaGoc = giaGoc;
+        this.giaSale = giaSale;
+        this.soLuongDaBan = soLuongDaBan;
+    }
 
     public String getIdSanPham() {
         return idSanPham;
@@ -40,6 +96,14 @@ public class SanPham implements Serializable {
         this.idDanhMuc = idDanhMuc;
     }
 
+    public String getAnhSanPham() {
+        return anhSanPham;
+    }
+
+    public void setAnhSanPham(String anhSanPham) {
+        this.anhSanPham = anhSanPham;
+    }
+
     public int getSoLuong() {
         return soLuong;
     }
@@ -69,56 +133,6 @@ public class SanPham implements Serializable {
     }
 
     public void setSoLuongDaBan(int soLuongDaBan) {
-        this.soLuongDaBan = soLuongDaBan;
-    }
-
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("tenSanPham", tenSanPham);
-        result.put("moTa", moTa);
-        result.put("idDanhMuc", idDanhMuc);
-        result.put("soLuong", soLuong);
-        result.put("giaGoc", giaGoc);
-        result.put("giaSale", giaSale);
-        result.put("soLuongDaBan", soLuongDaBan);
-        result.put("anhSanPham", anhSanPham);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "sanPham{" +
-                "idSanPham='" + idSanPham + '\'' +
-                ", tenSanPham='" + tenSanPham + '\'' +
-                ", moTa='" + moTa + '\'' +
-                ", idDanhMuc='" + idDanhMuc + '\'' +
-                ", soLuong=" + soLuong +
-                ", giaGoc=" + giaGoc +
-                ", giaSale=" + giaSale +
-                ", soLuongDaBan=" + soLuongDaBan +
-                '}';
-    }
-
-    public SanPham() {
-    }
-
-    public String getAnhSanPham() {
-        return anhSanPham;
-    }
-
-    public void setAnhSanPham(String anhSanPham) {
-        this.anhSanPham = anhSanPham;
-    }
-
-    public SanPham(String idSanPham, String tenSanPham, String moTa, String idDanhMuc, String anhSanPham, int soLuong, int giaGoc, int giaSale, int soLuongDaBan) {
-        this.idSanPham = idSanPham;
-        this.tenSanPham = tenSanPham;
-        this.moTa = moTa;
-        this.idDanhMuc = idDanhMuc;
-        this.anhSanPham = anhSanPham;
-        this.soLuong = soLuong;
-        this.giaGoc = giaGoc;
-        this.giaSale = giaSale;
         this.soLuongDaBan = soLuongDaBan;
     }
 }
