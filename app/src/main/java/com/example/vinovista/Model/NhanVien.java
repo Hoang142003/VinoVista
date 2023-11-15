@@ -8,6 +8,14 @@ public class NhanVien implements Serializable {
     String soDienThoai, matKhau, diaChi, anh, hoTen,idLoaiNhanVien;
         double luong;
 
+    public String getIdLoaiNhanVien() {
+        return idLoaiNhanVien;
+    }
+
+    public void setIdLoaiNhanVien(String idLoaiNhanVien) {
+        this.idLoaiNhanVien = idLoaiNhanVien;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("matKhau", matKhau);
