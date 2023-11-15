@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,13 +97,11 @@ public class Fragment_HoaDon extends Fragment {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("AAA", "đụ mẹ mày");
                 data.clear(); // Clear old data to add new data
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     HoaDon hoaDon = postSnapshot.getValue(HoaDon.class);
                     data.add(hoaDon);
-                    Log.e("AAA", hoaDon.getIdHoaDon());
                 }
 
                 Adapter_HoaDon adapter = new Adapter_HoaDon(data);
@@ -114,6 +114,35 @@ public class Fragment_HoaDon extends Fragment {
                 Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Thêm TextWatcher vào editTextSearch để lắng nghe sự thay đổi nội dung
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Mỗi khi nội dung thay đổi, thực hiện lọc dữ liệu
+                filterHoaDon(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    // Phương thức để lọc dữ liệu dựa trên nội dung tìm kiếm
+    private void filterHoaDon(String query) {
+        List<HoaDon> filteredData = new ArrayList<>();
+
+        for (HoaDon hoaDon : data) {
+            if (hoaDon.getTenKhachHang().toLowerCase().contains(query.toLowerCase())) {
+                filteredData.add(hoaDon);
+            }
+        }
+
+        Adapter_HoaDon adapter = new Adapter_HoaDon(filteredData);
+        recyclerViewResults.setAdapter(adapter);
     }
 
     private void setControl(View view) {

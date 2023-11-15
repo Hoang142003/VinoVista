@@ -13,6 +13,7 @@ import com.example.vinovista.Activity.ThongTinHoaDon;
 import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.HoaDonViewHolder> {
@@ -33,8 +34,8 @@ public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.HoaDonVi
     public void onBindViewHolder(@NonNull HoaDonViewHolder holder, int position) {
         HoaDon hoaDon = hoaDonList.get(position);
         holder.tvTenKH.setText(hoaDon.getTenKhachHang());
-        holder.tvTenNV.setText(hoaDon.getNhanVien());
-        holder.tvTongBill.setText(String.valueOf(hoaDon.getTongHoaDon()) + "đ");
+        holder.tvNgayMua.setText("Thời gian: " + hoaDon.getNgayMua());
+        holder.tvTongBill.setText("Tổng hoá đơn: " + hoaDon.getTongHoaDon() + "đ");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +53,12 @@ public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.HoaDonVi
     }
 
     public class HoaDonViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenKH, tvTenNV, tvTongBill; // và các trường khác
+        TextView tvTenKH, tvNgayMua, tvTongBill; // và các trường khác
 
         public HoaDonViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTenKH = itemView.findViewById(R.id.tvTenKH_QuanLyHD);
-            tvTenNV = itemView.findViewById(R.id.tvTenNV_QuanLyHD);
+            tvNgayMua = itemView.findViewById(R.id.tvNgayMua_QuanLyHD);
             tvTongBill = itemView.findViewById(R.id.tvTongBill_QuanLyHD);
         }
     }
