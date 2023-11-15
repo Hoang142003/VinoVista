@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.R;
 
 public class DangNhap extends AppCompatActivity {
     TextView tvquenmatkhau;
     EditText edtsdt, edtmk;
-    Button btnquanly,btnbanhang;
+    Button btnquanly, btnbanhang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

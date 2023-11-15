@@ -8,7 +8,7 @@
     <color name="yellow">#FFEB3B</color>
     <color name="red">#FF2222</color>
     <color name="green">#008000</color>
-    <color name="blue">#0000FF</color>
+    <color name="blue">#0C55DD</color>
     <color name="orange">#FFA500</color>
     <color name="purple">#800080</color>
     <color name="pink">#FFC0CB</color>
@@ -28,4 +28,5 @@
     <color name="darkRed">#8B0000</color>
     <color name="violet">#EE82EE</color>
     <color name="darkGreen">#006400</color>
+    <color name="begie">#F8E4CC</color>
 </resources>
