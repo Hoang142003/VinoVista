@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vinovista.R;
 
 public class trangchusanpham extends AppCompatActivity {
-    private RecyclerView rcvSPmua, rcvSpban, rcvSPtot, rcvChiTietDon;
-    private adapter_sanpham sanPhamAdapter;
+    private RecyclerView rcvSPmua, rcvSpban,rcvSPtot, rcvChiTietDon;
+    private Adapter_SanPham sanPhamAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_trang_chu_san_pham);
         setContent();
         setEvent();
     }
@@ -25,19 +25,19 @@ public class trangchusanpham extends AppCompatActivity {
     private void setEvent() {
         rcvSPmua.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rcvSPmua.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        sanPhamAdapter = new adapter_sanpham();
+        sanPhamAdapter = new Adapter_SanPham();
         rcvSPmua.setAdapter(sanPhamAdapter);
         rcvSpban.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rcvSpban.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        sanPhamAdapter = new adapter_sanpham();
+        sanPhamAdapter = new Adapter_SanPham();
         rcvSpban.setAdapter(sanPhamAdapter);
         rcvSPtot.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rcvSPtot.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        sanPhamAdapter = new adapter_sanpham();
+        sanPhamAdapter = new Adapter_SanPham();
         rcvSPtot.setAdapter(sanPhamAdapter);
         rcvChiTietDon.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rcvChiTietDon.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        sanPhamAdapter = new adapter_sanpham();
+        sanPhamAdapter = new Adapter_SanPham();
         rcvChiTietDon.setAdapter(sanPhamAdapter);
     }
 
@@ -47,7 +47,7 @@ public class trangchusanpham extends AppCompatActivity {
         rcvChiTietDon = findViewById(R.id.rcvChiTietDon);
         rcvSpban = findViewById(R.id.rcvSanPhamLuotBan);
         rcvSPmua = findViewById(R.id.rcvSanPhamLuotMua);
-        rcvSPtot = findViewById(R.id.rcvSanPhamGiaTot);
+        rcvSPtot= findViewById(R.id.rcvSanPhamGiaTot);
 
     }
 }

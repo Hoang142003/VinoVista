@@ -33,7 +33,7 @@
             android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Activity_Menu"
+            android:name=".Adapter_TrangChuSanPham.trangchusanpham"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

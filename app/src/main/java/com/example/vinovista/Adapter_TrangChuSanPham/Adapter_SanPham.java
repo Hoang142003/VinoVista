@@ -18,11 +18,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class adapter_sanpham extends RecyclerView.Adapter<adapter_sanpham.MyViewHolder> {
+public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.MyViewHolder> {
 
     private ArrayList<SanPham> datalist = new ArrayList<>();
 
-    public adapter_sanpham() {
+    public Adapter_SanPham() {
         khoi_tao();
     }
 
@@ -44,8 +44,6 @@ public class adapter_sanpham extends RecyclerView.Adapter<adapter_sanpham.MyView
         holder.tvsoluong.setText(String.valueOf(dataItem.getSoLuong()));
         holder.tvgiasale.setText(String.valueOf(dataItem.getGiaSale()) + " VND");
 
-
-
     }
 
     @Override
@@ -58,10 +56,10 @@ public class adapter_sanpham extends RecyclerView.Adapter<adapter_sanpham.MyView
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvgiasale = itemView.findViewById(R.id.tvGiaSale);
             tvten = itemView.findViewById(R.id.tvTenSP);
             tvgia = itemView.findViewById(R.id.tvGiaSP);
             tvsoluong = itemView.findViewById(R.id.tvSoLuong);
-            tvgiasale = itemView.findViewById(R.id.tvGiaSale);
 
         }
     }
