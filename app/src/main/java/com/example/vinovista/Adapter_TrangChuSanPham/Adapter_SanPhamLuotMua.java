@@ -45,6 +45,7 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         SanPham dataItem = datalist.get(position);
+
         holder.tvten.setText(dataItem.getTenSanPham());
         holder.tvgia.setText(String.valueOf(dataItem.getGiaGoc()) + " VND");
         holder.tvsoluong.setText(String.valueOf(dataItem.getSoLuong()));
@@ -73,6 +74,7 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
                     chiTietDon.getData().get(index).setSoLuongDaBan(dataItem.getSoLuongDaBan() + 1);
                     Log.e("a",""+dataItem.getSoLuongDaBan() + 1);
                 } else {
+                    dataItem.setSoLuongDaBan(dataItem.getSoLuongDaBan() + 1);
                     chiTietDon.getData().add(dataItem);
                 }
                 chiTietDon.notifyDataSetChanged();

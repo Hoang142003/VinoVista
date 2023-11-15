@@ -1,9 +1,11 @@
 package com.example.vinovista.Adapter_TrangChuSanPham;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.vinovista.Activity.Activity_ThanhToan;
 import com.example.vinovista.Adapter.Photo_Adapter;
 import com.example.vinovista.Model.SanPham;
 import com.example.vinovista.R;
@@ -29,12 +32,14 @@ import me.relex.circleindicator.CircleIndicator3;
 
 public class trangchusanpham extends AppCompatActivity {
     private RecyclerView rcvSPmua, rcvChiTietDon;
+
     private Adapter_SanPhamLuotMua sanPhamAdapter;
     private  Adapter_ChiTietDon chiTietDon=new Adapter_ChiTietDon();
 
     ViewPager2 vpiv;
     CircleIndicator3 ci;
     ArrayList<String> sanPhams = new ArrayList<>();
+    Button btnTiepTuc;
 
     ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
 
@@ -145,6 +150,14 @@ public class trangchusanpham extends AppCompatActivity {
                 handler.postDelayed(runnable, 3000);
             }
         });
+        btnTiepTuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(trangchusanpham.this, Activity_ThanhToan.class);
+                intent.putExtra("hoa_don",chiTietDon.getData());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setContent() {
@@ -153,6 +166,8 @@ public class trangchusanpham extends AppCompatActivity {
         rcvSPmua = findViewById(R.id.rcvSanPhamLuotMua);
         vpiv = findViewById(R.id.vpiv);
         ci = findViewById(R.id.ci);
+        btnTiepTuc = findViewById(R.id.btnTiepTuc);
+
 
     }
 }
