@@ -13,38 +13,49 @@
         android:orientation="horizontal">
         <ImageButton
             android:id="@+id/imbLogo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:scaleType="centerCrop"
             android:src="@drawable/logo"
-            android:scaleType="fitXY"
             android:paddingEnd="20dp"/>
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="20dp"
+            android:background="@drawable/selector_bg_edittext"
             android:hint="Tìm nhân viên"/>
 
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llThemNhanVien"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:padding="5dp"
         android:orientation="horizontal"
-        android:background="@color/blue">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/add_person"/>
+        android:background="@drawable/selector_bg_button">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="THÊM NHÂN VIÊN"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/add_person"/>
     </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar_danhsachnhanvien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvDanhSachNhanVien"
         android:layout_width="match_parent"

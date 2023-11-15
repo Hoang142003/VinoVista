@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -29,8 +31,10 @@ import java.util.ArrayList;
 public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyViewHolder> {
     ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
     Context context;
+    ProgressBar progressBar_danhsachnhanvien;
 
-    public adapter_NhanVien(Context context) {
+    public adapter_NhanVien(Context context, ProgressBar progressBar_danhsachnhanvien) {
+        this.progressBar_danhsachnhanvien=progressBar_danhsachnhanvien;
         this.context = context;
         khoiTao();
     }
@@ -47,6 +51,24 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         NhanVien nhanVien = danhSachNhanVien.get(position);
         holder.tvTenNhanVien.setText(nhanVien.getHoTen());
         holder.tvLoaiNhanVien.setText(setTenLoaiNhanVien(nhanVien));
+        Picasso.get().load(nhanVien.getAnh()).into(holder.ivAnhNhanVien);
+        Picasso.get().load(nhanVien.getAnh()).into(holder.ivAnhNhanVien, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                // Ảnh đã được tải, ẩn ProgressBar
+                holder.progressBar_anh.setVisibility(View.GONE);
+                // Set viền khi đã load ảnh
+                //holder.ivAnhNhanVien.setBackgroundResource(R.drawable.border_image_nhanvien);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                // Có lỗi khi tải ảnh, ẩn ProgressBar và có thể hiển thị ảnh lỗi
+                holder.progressBar_anh.setVisibility(View.GONE);
+                // Set ảnh lỗi nếu có
+                holder.ivAnhNhanVien.setImageResource(R.drawable.person);
+            }
+        });
         holder.imbChinhSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +93,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         ImageButton imbChinhSua;
         TextView tvTenNhanVien;
         TextView tvLoaiNhanVien;
+        ProgressBar progressBar_anh;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,10 +101,12 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
             imbChinhSua=itemView.findViewById(R.id.imbChinhSuaNhanVien);
             tvTenNhanVien = itemView.findViewById(R.id.tvTenNhanVien);
             tvLoaiNhanVien = itemView.findViewById(R.id.tvLoaiNhanVien);
+            progressBar_anh= itemView.findViewById(R.id.progressBar_anhnv);
         }
     }
 
     private void khoiTao() {
+        progressBar_danhsachnhanvien.setVisibility(View.GONE);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -117,6 +142,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
                         notifyItemInserted(danhSachNhanVien.size() - 1);
                     }
                 }
+                progressBar_danhsachnhanvien.setVisibility(View.GONE);
             }
 
             @Override

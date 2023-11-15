@@ -1,5 +1,6 @@
 package com.example.vinovista.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +17,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vinovista.Adapter.PasswordEncoder;
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +38,8 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
     TextView edtMatKhau;
     TextView edtLuong;
     Button btnSave;
+    private String anh = null;
+    NhanVien nhanVien;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
@@ -42,8 +49,21 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_nhan_vien);
+        Intent intent = getIntent();
+        nhanVien = (NhanVien) intent.getSerializableExtra("nhanVien");
         setControl();
         setEvent();
+    }
+
+    void fillData(NhanVien nhanVien) {
+        edtTenNv.setText(nhanVien.getHoTen());
+        edtTenNv.setEnabled(false);
+        edtLuong.setText(String.valueOf(nhanVien.getLuong()));
+        edtDiaChi.setText(nhanVien.getDiaChi());
+        edtLuong.setText(nhanVien.getLuong());
+        edtLuong.setEnabled(false);
+        edtMatKhau.setText("");
+
     }
 
     private void setControl() {
@@ -78,14 +98,37 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
             }
         });
     }
-    void luuThongTin(){
-        String ten=edtTenNv.getText().toString(),
-                diaChi=edtDiaChi.getText().toString(),
-                soDienThoai=edtSoDienThoaiNV.getText().toString(),
-                matKhau=edtMatKhau.getText().toString(),
-                loaiNhanVien="1",
-                luong= String.valueOf(edtLuong.getText());
-        NhanVien nhanVien=new NhanVien();
+
+    private void luuThongTin(NhanVien nhanVien) {
+        // lấy số điện thoại từ đối tượng nhân viên
+        String soDienThoai = nhanVien.getSoDienThoai();
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien");
+        // dùng số điện thoại là key
+        databaseReference.child(soDienThoai).setValue(nhanVien, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null) {
+                    Toast.makeText(Activity_ThemNhanVien.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(Activity_ThemNhanVien.this, "Add failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    NhanVien nhanVienMoi() {
+        String ten = edtTenNv.getText().toString(),
+                diaChi = edtDiaChi.getText().toString(),
+                soDienThoai = edtSoDienThoaiNV.getText().toString(),
+                matKhau = PasswordEncoder.encrypt(edtMatKhau.getText().toString()),
+                loaiNhanVien = "1",
+                luong = String.valueOf(edtLuong.getText());
+        anh = anh;
+        NhanVien nhanVien = new NhanVien(soDienThoai, ten, matKhau, diaChi, anh, loaiNhanVien, Integer.parseInt(luong));
+        return nhanVien;
     }
 
     private void showImagePickDialog() {
@@ -148,10 +191,14 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
         UploadTask uploadTask = storageRef.putBytes(data);
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                anh = uri.toString();  // Update the anh variable with the URL
                 Toast.makeText(Activity_ThemNhanVien.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+
+                luuThongTin(nhanVienMoi());
             });
         }).addOnFailureListener(e -> {
             Toast.makeText(Activity_ThemNhanVien.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
         });
     }
+
 }

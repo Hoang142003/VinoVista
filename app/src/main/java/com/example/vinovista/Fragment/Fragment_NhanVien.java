@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.example.vinovista.Activity.Activity_ThemNhanVien;
 import com.example.vinovista.Adapter.adapter_NhanVien;
@@ -68,12 +69,13 @@ public class Fragment_NhanVien extends Fragment {
     RecyclerView rcvDanhSachNhanVien;
     private adapter_NhanVien adapter;
     LinearLayout llThemNhanVien;
+    ProgressBar progressBar_danhsachnhanvien;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__nhan_vien, container, false);
         setControl(view);
-        adapter = new adapter_NhanVien(getContext());
+        adapter = new adapter_NhanVien(getContext(),progressBar_danhsachnhanvien);
         setEvent();
         Log.e("soLuong", adapter.getItemCount() + "");
 
