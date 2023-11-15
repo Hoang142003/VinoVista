@@ -13,7 +13,7 @@ public class NhanVien implements Serializable {
         HashMap<String, Object> result = new HashMap<>();
         result.put("matKhau", matKhau);
         result.put("diaChi", diaChi);
-        result.put("anh", anh);
+        result.put("anhSanPham", anh);
         result.put("hoTen", hoTen);
         result.put("luong", luong);
         result.put("idLoaiNhanVien", idLoaiNhanVien);
@@ -26,7 +26,7 @@ public class NhanVien implements Serializable {
                 "soDienThoai='" + soDienThoai + '\'' +
                 ", matKhau='" + matKhau + '\'' +
                 ", diaChi='" + diaChi + '\'' +
-                ", anh='" + anh + '\'' +
+                ", anhSanPham='" + anh + '\'' +
                 ", hoTen='" + hoTen + '\'' +
                 ", idLoaiNhanVien='" + idLoaiNhanVien + '\'' +
                 ", luong=" + luong +

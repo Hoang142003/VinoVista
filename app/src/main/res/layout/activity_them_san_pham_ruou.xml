@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Activity_ThemSanPhamRuou">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:src="@drawable/back" />
+        <ImageView
+            android:id="@+id/ivSanPham"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:background="@drawable/border_item_quanlyhoadon"
+            ></ImageView>
+        <EditText
+            android:id="@+id/edtTenSanPham"
+            android:hint="Tên sản phẩm"
+            android:layout_gravity="center"
+            android:layout_width="400dp"
+            style="@style/edt"
+            android:layout_height="wrap_content"
+
+            ></EditText>
+        <EditText
+            style="@style/edt"
+            android:id="@+id/edtMoTa"
+            android:hint="Mô tả"
+            android:layout_gravity="center"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+
+            ></EditText>
+        <EditText
+            style="@style/edt"
+            android:id="@+id/edtGiaNhap"
+            android:hint="Giá nhập"
+            android:layout_gravity="center"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            ></EditText>
+        <EditText
+            style="@style/edt"
+            android:id="@+id/edtGiaBan"
+            android:hint="Giá bán"
+            android:layout_gravity="center"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:inputType="number"
+            ></EditText>
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loại sản phẩm"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"></TextView>
+        <Spinner
+            android:id="@+id/spnLoai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/border_item_quanlyhoadon"
+            ></Spinner>
+        <EditText
+            style="@style/edt"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/edtSoLuong"
+            android:hint="Số lượng"
+            android:layout_gravity="center"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            ></EditText>
+        <Button
+            android:id="@+id/btnHoanTat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/btn"
+            android:text="Hoàn tất"></Button>
+    </LinearLayout>
+</LinearLayout>
