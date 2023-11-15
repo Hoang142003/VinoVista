@@ -1,15 +1,20 @@
 package com.example.vinovista.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.example.vinovista.Activity.Activity_ThemNhanVien;
 import com.example.vinovista.Adapter.adapter_NhanVien;
 import com.example.vinovista.R;
 
@@ -62,6 +67,7 @@ public class Fragment_NhanVien extends Fragment {
 
     RecyclerView rcvDanhSachNhanVien;
     private adapter_NhanVien adapter;
+    LinearLayout llThemNhanVien;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,15 +75,33 @@ public class Fragment_NhanVien extends Fragment {
         setControl(view);
         adapter = new adapter_NhanVien(getContext());
         setEvent();
-        Log.e("soLuong",adapter.getItemCount()+"");
+        Log.e("soLuong", adapter.getItemCount() + "");
 
         return view;
     }
 
     private void setEvent() {
+        rcvDanhSachNhanVien.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rcvDanhSachNhanVien.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        rcvDanhSachNhanVien.setAdapter(adapter);
+        llThemNhanVien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), Activity_ThemNhanVien.class);
+                getContext().startActivity(intent);
+            }
+        });
+        llThemNhanVien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Activity_ThemNhanVien.class);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     private void setControl(View view) {
-rcvDanhSachNhanVien=view.findViewById(R.id.rcvDanhSachNhanVien);
+        rcvDanhSachNhanVien = view.findViewById(R.id.rcvDanhSachNhanVien);
+        llThemNhanVien = view.findViewById(R.id.llThemNhanVien);
     }
 }

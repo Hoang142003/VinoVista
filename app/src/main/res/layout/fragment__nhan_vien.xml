@@ -27,7 +27,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/btnThemNhanVien"
+        android:id="@+id/llThemNhanVien"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginBottom="20dp"

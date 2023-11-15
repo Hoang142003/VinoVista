@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vinovista.Activity.Activity_ThemNhanVien;
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
 import com.google.firebase.database.DataSnapshot;
@@ -49,18 +50,15 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         holder.imbChinhSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, adapter_NhanVien.class);
-                intent.putExtra("nhanVien",nhanVien);
+                Intent intent = new Intent(context, Activity_ThemNhanVien.class);
+                intent.putExtra("nhanVien", nhanVien);
+                context.startActivity(intent);
             }
         });
     }
 
     private String setTenLoaiNhanVien(NhanVien nhanVien) {
-        if (nhanVien.getIdLoaiNhanVien().equals("1")) {
-            return "Quản lý";
-        } else {
-            return "Nhân viên";
-        }
+        return "1".equals(nhanVien.getIdLoaiNhanVien()) ? "Quản lý" : "Nhân viên";
     }
 
     @Override
@@ -78,7 +76,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
             super(itemView);
             ivAnhNhanVien = itemView.findViewById(R.id.ivAnhNhanVien);
             imbChinhSua=itemView.findViewById(R.id.imbChinhSuaNhanVien);
-            tvTenNhanVien = itemView.findViewById(R.id.tvLoaiNhanVien);
+            tvTenNhanVien = itemView.findViewById(R.id.tvTenNhanVien);
             tvLoaiNhanVien = itemView.findViewById(R.id.tvLoaiNhanVien);
         }
     }
@@ -88,18 +86,42 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                danhSachNhanVien.clear();
+                // Dữ liệu mới từ Firebase
+                ArrayList<NhanVien> newData = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     NhanVien nhanVien = dataSnapshot.getValue(NhanVien.class);
                     if (nhanVien != null) {
-                        danhSachNhanVien.add(nhanVien);
+                        newData.add(nhanVien);
+                    }
+                }
+
+                // Xử lý sự kiện xóa
+                for (int i = 0; i < danhSachNhanVien.size(); i++) {
+                    NhanVien nhanVien = danhSachNhanVien.get(i);
+                    if (!newData.contains(nhanVien)) {
+                        danhSachNhanVien.remove(nhanVien);
+                        notifyItemRemoved(i);
+                    }
+                }
+
+                // Xử lý sự kiện thêm mới và cập nhật
+                for (NhanVien newNhanVien : newData) {
+                    int index = danhSachNhanVien.indexOf(newNhanVien);
+                    if (index != -1) {
+                        // Nếu NhanVien đã tồn tại, cập nhật nó
+                        danhSachNhanVien.set(index, newNhanVien);
+                        notifyItemChanged(index);
+                    } else {
+                        // Nếu NhanVien chưa tồn tại, thêm mới
+                        danhSachNhanVien.add(newNhanVien);
+                        notifyItemInserted(danhSachNhanVien.size() - 1);
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("adapter_NhanVien", "Lỗi khi đọc dữ liệu từ Firebase", error.toException());
             }
         });
     }

@@ -18,7 +18,7 @@
 <!--            android:name=".Activity.DangNhap"-->
 <!--            android:exported="false" />-->
         <activity
-            android:name=".Activity.ActivityQuanLyNhanVien"
+            android:name=".Activity.Activity_ThemNhanVien"
             android:exported="false" />
         <activity
             android:name=".Activity.Xac_Thuc_OTP"
@@ -33,7 +33,7 @@
             android:name=".Activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.DangNhap"
+            android:name=".Activity.Activity_Menu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
