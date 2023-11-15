@@ -1,6 +1,5 @@
 package com.example.vinovista.Adapter_TrangChuSanPham;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,11 +28,15 @@ import java.util.ArrayList;
 import me.relex.circleindicator.CircleIndicator3;
 
 public class trangchusanpham extends AppCompatActivity {
-    private RecyclerView rcvSPmua, rcvSpban,rcvSPtot, rcvChiTietDon;
-    private Adapter_SanPham sanPhamAdapter;
+    private RecyclerView rcvSPmua, rcvChiTietDon;
+    private Adapter_SanPhamLuotMua sanPhamAdapter;
+    private  Adapter_ChiTietDon chiTietDon=new Adapter_ChiTietDon();
+
     ViewPager2 vpiv;
     CircleIndicator3 ci;
     ArrayList<String> sanPhams = new ArrayList<>();
+
+    ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,23 +92,15 @@ public class trangchusanpham extends AppCompatActivity {
     }
 
     private void setEvent() {
-        sanPhamAdapter = new Adapter_SanPham();
-        rcvSPmua.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcvSPmua.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-
+        sanPhamAdapter = new Adapter_SanPhamLuotMua(chiTietDon);
+        rcvSPmua.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rcvSPmua.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         rcvSPmua.setAdapter(sanPhamAdapter);
 
-        rcvSpban.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcvSpban.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        rcvSpban.setAdapter(sanPhamAdapter);
-
-        rcvSPtot.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcvSPtot.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        rcvSPtot.setAdapter(sanPhamAdapter);
 
         rcvChiTietDon.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rcvChiTietDon.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        rcvChiTietDon.setAdapter(sanPhamAdapter);
+        rcvChiTietDon.setAdapter(chiTietDon);
     }
     private void AutoSlideImage() {
 //        if(mTimer==null){
@@ -155,9 +150,7 @@ public class trangchusanpham extends AppCompatActivity {
     private void setContent() {
         rcvChiTietDon = findViewById(R.id.rcvChiTietDon);
         rcvChiTietDon = findViewById(R.id.rcvChiTietDon);
-        rcvSpban = findViewById(R.id.rcvSanPhamLuotBan);
         rcvSPmua = findViewById(R.id.rcvSanPhamLuotMua);
-        rcvSPtot= findViewById(R.id.rcvSanPhamGiaTot);
         vpiv = findViewById(R.id.vpiv);
         ci = findViewById(R.id.ci);
 

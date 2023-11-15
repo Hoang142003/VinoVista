@@ -88,33 +88,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvSanPhamLuotMua"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="500dp" />
 
-        <TextView
-            style="@style/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Danh sách sản phẩm giá tốt nhất:"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="8dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvSanPhamGiaTot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            style="@style/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Danh sách sản phẩm có nhiều lượt bán :"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="8dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvSanPhamLuotBan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <TextView
             style="@style/tv"
             android:layout_width="wrap_content"
