@@ -1,8 +1,10 @@
-package com.example.vinovista;
+package com.example.vinovista.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.vinovista.R;
 
 public class MainActivity extends AppCompatActivity {
 

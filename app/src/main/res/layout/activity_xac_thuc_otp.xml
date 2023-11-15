@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Xac_Thuc_OTP">
+    tools:context=".Activity.Xac_Thuc_OTP">
 
     <TextView
         style="@style/tv"
