@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.vinovista.Adapter.Adapter_ChiTietHoaDon;
+import com.example.vinovista.Adapter.Adapter_ThanhToan_Hoadon;
 import com.example.vinovista.Model.ChiTietHoaDon;
 import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.Model.SanPham;
@@ -32,7 +34,7 @@ public class Activity_ThanhToan extends AppCompatActivity {
     EditText edtTenKhachHang, edtSoDienThoai;
     TextView tvTongHD, tvNhanVien, tvNgayLap;
     RecyclerView rcvDanhSachSP;
-    Adapter_ChiTietHoaDon adapter;
+    Adapter_ThanhToan_Hoadon adapter;
     ArrayList<SanPham>arr_hoadon=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,52 +58,30 @@ public class Activity_ThanhToan extends AppCompatActivity {
 //        HoaDon hoaDon = (HoaDon) getIntent().getSerializableExtra("hoaDon");
 
         // Gán dữ liệu lên các View
-//        double tongtien=0;
-//        for(SanPham sanPham:arr_hoadon){
-//            tongtien+=hoadon
-//        }
-//        tvTongHD.setText(hoaDon.getTongHoaDon() + "đ");
-//        tvNhanVien.setText(hoaDon.getNhanVien());
-//        Date now=new Date();
-//        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm");
-//        tvNgayLap.setText(dateFormat.format(now));
-//
-//        // Giả sử bạn có phương thức này để lấy danh sách chi tiết hóa đơn dựa trên id_hoadon
-//        List<ChiTietHoaDon> listChiTiet = getDataFromDatabase(hoaDon.getIdHoaDon());
+        double tongtien=0;
+        for(SanPham sanPham:arr_hoadon){
+            if(sanPham.getGiaSale()!=0){
+                tongtien+=sanPham.getGiaSale();
+            }
+            else {
+                tongtien+=sanPham.getGiaGoc();
+            }
+
+        }
+        tvTongHD.setText(tongtien + "đ");
+        SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
+        String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
+        String name_staff = sharedPreferences.getString(DangNhap.name_staff, "");
+        tvNhanVien.setText(name_staff);
+        Date now=new Date();
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        tvNgayLap.setText(dateFormat.format(now));
 
         // Khởi tạo adapter và gán cho RecyclerView
-    //    adapter = new Adapter_ChiTietHoaDon(listChiTiet);
+        adapter = new Adapter_ThanhToan_Hoadon(arr_hoadon);
         rcvDanhSachSP.setAdapter(adapter);
 
     }
-
-    private List<ChiTietHoaDon> getDataFromDatabase(String hoaDonId) {
-        List<ChiTietHoaDon> listChiTiet = new ArrayList<>();
-
-        // Khởi tạo tham chiếu đến cơ sở dữ liệu
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ChiTietHoaDon");
-
-        // Thực hiện truy vấn dựa trên id_hoadon
-        databaseReference.child(hoaDonId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot chiTietSnapshot : dataSnapshot.getChildren()) {
-                    ChiTietHoaDon chiTiet = chiTietSnapshot.getValue(ChiTietHoaDon.class);
-                    listChiTiet.add(chiTiet);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Xử lý lỗi ở đây
-                Log.w("FirebaseError", "loadPost:onCancelled", databaseError.toException());
-            }
-        });
-
-        return listChiTiet;
-    }
-
 
     private void setControl() {
         btnQuayLai = findViewById(R.id.btnQuayLai_TTHD);
