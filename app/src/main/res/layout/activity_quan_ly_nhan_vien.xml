@@ -1,53 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical"
     tools:context=".Activity.ActivityQuanLyNhanVien">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-    <ImageButton
-        android:id="@+id/imbLogo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/logo"
-        android:scaleType="fitXY"
-        android:paddingEnd="20dp"/>
-    <EditText
-        android:id="@+id/edtSearch"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="20dp"
-        android:hint="Tìm nhân viên"/>
-
+    android:gravity="center_vertical">
+<!--    <ImageButton-->
+<!--        android:layout_width="40"-->
+<!--        android:layout_height=""-->
 </LinearLayout>
-    <LinearLayout
-        android:id="@+id/btnThemNhanVien"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@color/blue">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/person"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="THÊM NHÂN VIÊN"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvDanhSachNhanVien"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"/>
 </LinearLayout>

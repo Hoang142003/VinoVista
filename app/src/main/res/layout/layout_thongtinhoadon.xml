@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <ImageButton
+        android:id="@+id/btnQuayLai_TTHD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên khách hàng"
+            style="@style/TextView_QuanLyHoaDon"/>
+
+        <EditText
+            android:id="@+id/edtTenKhachHang_TTHD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            style="@style/TextView_QuanLyHoaDon"/>
+
+        <EditText
+            android:id="@+id/edtSoDienThoai_TTHD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách các sản phẩm"
+            style="@style/TextView_QuanLyHoaDon"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvDanhSachSP_TTHD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng hoá đơn: "
+                style="@style/TextView_QuanLyHoaDon"/>
+
+            <TextView
+                android:id="@+id/edtTongHD_TTHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextView_QuanLyHoaDon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhân viên: "
+                style="@style/TextView_QuanLyHoaDon"/>
+
+            <TextView
+                android:id="@+id/tvNhanVien_TTHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextView_QuanLyHoaDon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày lập hoá đơn: "
+                style="@style/TextView_QuanLyHoaDon"/>
+
+            <TextView
+                android:id="@+id/tvNgayLap_TTHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextView_QuanLyHoaDon"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Lưu"
+            android:background="@drawable/border_button_thongtinhoadon"/>
+
+    </LinearLayout>
+
+</LinearLayout>

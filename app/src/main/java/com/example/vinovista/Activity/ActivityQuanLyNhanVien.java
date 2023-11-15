@@ -12,5 +12,14 @@ public class ActivityQuanLyNhanVien extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_nhan_vien);
+        setControl();
+        setEvent();
+    }
+
+    private void setControl() {
+    }
+
+    private void setEvent() {
+        
     }
 }
