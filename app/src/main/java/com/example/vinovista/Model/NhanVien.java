@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class NhanVien implements Serializable {
     String soDienThoai, matKhau, diaChi, anh, hoTen,idLoaiNhanVien;
-    double luong;
+        double luong;
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
