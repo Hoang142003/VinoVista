@@ -1,12 +1,17 @@
 package com.example.vinovista.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vinovista.Model.DanhMuc;
 import com.example.vinovista.R;
@@ -14,37 +19,67 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class DanhMucAdapter extends BaseAdapter {
+public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.DanhMucViewHolder> {
+    List<DanhMuc> danhMucList;
     private Context context;
-    private List<DanhMuc> danhMucList;
 
-    public DanhMucAdapter(Context context, List<DanhMuc> danhMucList) {
-        this.context = context;
+    public DanhMucAdapter(List<DanhMuc> danhMucList,Context context) {
         this.danhMucList = danhMucList;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public DanhMucViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_danh_muc,parent,false);
+        return new DanhMucViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return danhMucList != null ? danhMucList.size() : 0;
+    public void onBindViewHolder(@NonNull DanhMucViewHolder holder, int position) {
+        DanhMuc danhMuc = danhMucList.get(position);
+        if(danhMuc == null)
+        {
+            return;
+        }
+        holder.tvDanhMuc.setText(danhMuc.getTenDanhMuc());
+        Picasso.get().load(
+                        danhMuc.getAnh()
+                ).placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground)
+                .fit()
+                .into(holder.ivDanhMuc);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mnSuaDanhMuc = new Intent(context, Activity_Sua_Danh_Muc.class);
+                mnSuaDanhMuc.putExtra("id_danh_muc",danhMucList.get(position));
+                context.startActivity(mnSuaDanhMuc);
+            }
+        });
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
+    public int getItemCount() {
+        if(danhMucList != null)
+        {
+            return  danhMucList.size();
+        }
         return 0;
     }
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View rootView = LayoutInflater.from(context).inflate(R.layout.custom_danh_muc_spiner,viewGroup,false);
-        TextView tvDanhMuc = rootView.findViewById(R.id.tvDanhMuc);
-        ImageView ivDanhMuc = rootView.findViewById(R.id.ivDanhMuc);
-        tvDanhMuc.setText(danhMucList.get(i).getTenDanhMuc());
-        Picasso.get().load(danhMucList.get(i).getAnh()).into(ivDanhMuc);
-        return rootView;
+    class DanhMucViewHolder extends RecyclerView.ViewHolder
+    {
+
+        private TextView tvDanhMuc;
+        private ImageView ivDanhMuc;
+        public RelativeLayout layout;
+        public DanhMucViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvDanhMuc = itemView.findViewById(R.id.tvDanhMuc);
+            ivDanhMuc = itemView.findViewById(R.id.ivDanhMuc);
+            layout = itemView.findViewById(R.id.layout);
+
+        }
     }
 }
