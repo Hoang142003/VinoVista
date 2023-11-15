@@ -2,15 +2,7 @@ package com.example.vinovista.Model;
 
 public class ChiTietHoaDon {
     String idHoaDon, idSanPham;
-    int soLuong, gia,sl_hoadon;
-
-    public int getSl_hoadon() {
-        return sl_hoadon;
-    }
-
-    public void setSl_hoadon(int sl_hoadon) {
-        this.sl_hoadon = sl_hoadon;
-    }
+    int soLuong, gia;
 
     @Override
     public String toString() {

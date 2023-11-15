@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VinoVista"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".Activity.Activity_ThanhToan"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".Activity.Activity_ThanhToan"
+            android:exported="false" />
         <!-- <activity -->
         <!-- android:name=".Activity.DangNhap" -->
         <!-- android:exported="false" /> -->
@@ -42,7 +42,7 @@
             android:name=".Adapter_TrangChuSanPham.chitietsanpham"
             android:exported="false" />
         <activity
-            android:name=".Activity.Activity_ThanhToan"
+            android:name=".Adapter_TrangChuSanPham.trangchusanpham"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

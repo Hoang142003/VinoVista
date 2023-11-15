@@ -39,18 +39,16 @@ public class Activity_ThanhToan extends AppCompatActivity {
     Button btn_xuatfile, btn_Thanhtoan;
     RecyclerView rcvDanhSachSP;
     Adapter_ThanhToan_Hoadon adapter;
-    ArrayList<SanPham> arr_hoadon = new ArrayList<>();
     Date now = new Date();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     int tongtien = 0;
+    ArrayList<SanPham> arr_sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanh_toan);
-
-        arr_hoadon.add(new SanPham("a", "a", "a", "a", "a", 1, 1, 2, 2));
-        arr_hoadon.add(new SanPham("a", "a", "a", "a", "a", 1, 1, 2, 2));
-        arr_hoadon.add(new SanPham("a", "a", "a", "a", "a", 1, 1, 2, 2));
+        arr_sp = (ArrayList<SanPham>) getIntent().getSerializableExtra("hoa_don");
         setControl();
         Initialization();
         setEvent();
@@ -58,26 +56,24 @@ public class Activity_ThanhToan extends AppCompatActivity {
 
     private void Initialization() {
         // Nhận dữ liệu từ Intent
-//        HoaDon hoaDon = (HoaDon) getIntent().getSerializableExtra("hoaDon");
 
         // Gán dữ liệu lên các View
-        for (SanPham sanPham : arr_hoadon) {
+        for (SanPham sanPham : arr_sp) {
             if (sanPham.getGiaSale() != 0) {
-                tongtien += sanPham.getGiaSale();
+                tongtien += sanPham.getGiaSale()*sanPham.getSoLuongDaBan();
             } else {
-                tongtien += sanPham.getGiaGoc();
+                tongtien += sanPham.getGiaGoc()*sanPham.getSoLuongDaBan();
             }
 
         }
         tvTongHD.setText(tongtien + "đ");
         SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
-        String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
         String name_staff = sharedPreferences.getString(DangNhap.name_staff, "");
         tvNhanVien.setText(name_staff);
         tvNgayLap.setText(dateFormat.format(now));
 
         // Khởi tạo adapter và gán cho RecyclerView
-        adapter = new Adapter_ThanhToan_Hoadon(arr_hoadon);
+        adapter = new Adapter_ThanhToan_Hoadon(arr_sp);
         rcvDanhSachSP.setAdapter(adapter);
         rcvDanhSachSP.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -94,21 +90,19 @@ public class Activity_ThanhToan extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
                 String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
-                DatabaseReference reference_hoadon=FirebaseDatabase.getInstance().getReference("HoaDon");
-                DatabaseReference reference_chittiet_hoadon=FirebaseDatabase.getInstance().getReference("ChiTietHoaDon");
-                String id_hoadon=reference_hoadon.push().getKey();
-                HoaDon hoaDon=new HoaDon(id_hoadon,edtTenKhachHang.getText().toString().trim(),edtSoDienThoai.getText().toString(),dateFormat.format(now),id_staff_auto,tongtien);
-                reference_hoadon.setValue(hoaDon, new DatabaseReference.CompletionListener() {
+                DatabaseReference reference_hoadon = FirebaseDatabase.getInstance().getReference("HoaDon");
+                DatabaseReference reference_chittiet_hoadon = FirebaseDatabase.getInstance().getReference("ChiTietHoaDon");
+                String id_hoadon = reference_hoadon.push().getKey();
+                HoaDon hoaDon = new HoaDon(id_hoadon, edtTenKhachHang.getText().toString().trim(), edtSoDienThoai.getText().toString(), dateFormat.format(now), id_staff_auto, tongtien);
+                reference_hoadon.child(hoaDon.getIdHoaDon()).setValue(hoaDon, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        for(SanPham sanPham:arr_hoadon){
+                        for (SanPham sanPham : arr_sp) {
                             if (sanPham.getGiaSale() != 0) {
-                                int tong_gia_sanpham=sanPham.getSoLuong()*sanPham.getGiaSale();
-                                ChiTietHoaDon chiTietHoaDon=new ChiTietHoaDon(hoaDon.getIdHoaDon(),sanPham.getIdSanPham(),sanPham.getSoLuongDaBan(),tong_gia_sanpham);
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSoLuongDaBan(), sanPham.getGiaSale());
                                 reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
                             } else {
-                                int tong_gia_sanpham=sanPham.getSoLuong()*sanPham.getGiaGoc();
-                                ChiTietHoaDon chiTietHoaDon=new ChiTietHoaDon(hoaDon.getIdHoaDon(),sanPham.getIdSanPham(),sanPham.getSoLuongDaBan(),tong_gia_sanpham);
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSoLuongDaBan(), sanPham.getGiaGoc());
                                 reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
                             }
 
