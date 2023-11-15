@@ -73,7 +73,9 @@ public class Xac_Thuc_OTP extends AppCompatActivity {
                                 btnguilaimaOTP.setVisibility(View.VISIBLE);
                                 ivtieptheo.setVisibility(View.VISIBLE);
                                 iv_back.setVisibility(View.VISIBLE);
-                                Toast.makeText(Xac_Thuc_OTP.this, "Xác thực thành công", Toast.LENGTH_LONG).show();
+                                intent.putExtra("sdt",sdt);
+                                startActivity(intent);
+                                finish();
                             } else {
                                 Toast.makeText(Xac_Thuc_OTP.this, "Mã OTP vừa nhập không chính xác", Toast.LENGTH_SHORT).show();
                             }

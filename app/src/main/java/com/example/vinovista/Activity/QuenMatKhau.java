@@ -15,6 +15,11 @@ import com.example.vinovista.R;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,35 +43,54 @@ public class QuenMatKhau extends AppCompatActivity {
             public void onClick(View v) {
                 pbquenmatkhau.setVisibility(View.VISIBLE);
                 btnNhanMaOTP.setVisibility(View.GONE);
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        "+84"+edtsdt.getText().toString(),
-                        60,
-                        TimeUnit.SECONDS,
-                        QuenMatKhau.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                pbquenmatkhau.setVisibility(View.GONE);
-                                btnNhanMaOTP.setVisibility(View.VISIBLE);
-                            }
+                DatabaseReference reference= FirebaseDatabase.getInstance().getReference("NhanVien");
+                reference.child(edtsdt.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                    "+84"+edtsdt.getText().toString(),
+                                    60,
+                                    TimeUnit.SECONDS,
+                                    QuenMatKhau.this,
+                                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                        @Override
+                                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                            pbquenmatkhau.setVisibility(View.GONE);
+                                            btnNhanMaOTP.setVisibility(View.VISIBLE);
+                                        }
 
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                pbquenmatkhau.setVisibility(View.GONE);
-                                btnNhanMaOTP.setVisibility(View.VISIBLE);
-                                Toast.makeText(QuenMatKhau.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                                        @Override
+                                        public void onVerificationFailed(@NonNull FirebaseException e) {
+                                            pbquenmatkhau.setVisibility(View.GONE);
+                                            btnNhanMaOTP.setVisibility(View.VISIBLE);
+                                            Toast.makeText(QuenMatKhau.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
 
-                            @Override
-                            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                pbquenmatkhau.setVisibility(View.GONE);
-                                btnNhanMaOTP.setVisibility(View.VISIBLE);
-                                intent.putExtra("sdt",edtsdt.getText().toString());
-                                intent.putExtra("verificationId",verificationId);
-                                startActivity(intent);
+                                        @Override
+                                        public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                            pbquenmatkhau.setVisibility(View.GONE);
+                                            btnNhanMaOTP.setVisibility(View.VISIBLE);
+                                            intent.putExtra("sdt",edtsdt.getText().toString());
+                                            intent.putExtra("verificationId",verificationId);
+                                            startActivity(intent);
 
-                            }
-                        });
+                                        }
+                                    });
+                        }
+                        else{
+                            pbquenmatkhau.setVisibility(View.GONE);
+                            btnNhanMaOTP.setVisibility(View.VISIBLE);
+                            Toast.makeText(QuenMatKhau.this, "Số điện thoại không có trong lưu trữ!!!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 ///Code xác thuc bi loi nhung khong gach
 //                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 //            PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
