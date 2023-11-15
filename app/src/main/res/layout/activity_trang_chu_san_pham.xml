@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnLogo"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:src="@drawable/logo" />
+
+            <EditText
+                android:id="@+id/edt_search"
+                style="@style/edt"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Tìm kiếm" />
+
+            <ImageButton
+                android:id="@+id/btnProfile"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:src="@drawable/person" />
+        </LinearLayout>
+
+        <!-- Drink Categories -->
+        <LinearLayout
+            android:background="#F8E4CC"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Category 1 -->
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    style="@style/button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+
+                <TextView
+                    style="@style/tv1"
+                    android:text="Champage">
+                </TextView>
+            </LinearLayout>
+
+            <!-- Category 2 -->
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    style="@style/button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+
+                <TextView
+                    style="@style/tv2"
+                    android:text="Vang">
+                </TextView>
+            </LinearLayout>
+
+            <!-- Category 3 -->
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    style="@style/button"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+
+                <TextView
+                    style="@style/tv2"
+                    android:text="Vodka">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Product Lists -->
+        <!-- Add appropriate margins and styles for TextViews here -->
+        <TextView
+            style="@style/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách sản phẩm có nhiều lượt mua:"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvSanPhamLuotMua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách sản phẩm giá tốt nhất:"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvSanPhamGiaTot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách sản phẩm có nhiều lượt bán :"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvSanPhamLuotBan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chi Tiết Đơn :"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvChiTietDon"
+            android:layout_width="match_parent"
+            android:layout_height="230dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/btnBtnHuy"
+                style="@style/btnHuy"
+                android:text="Hủy" />
+            <Button
+                android:id="@+id/btnTiepTuc"
+                style="@style/btnTiepTuc"
+                android:text="Tiếp tục" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
