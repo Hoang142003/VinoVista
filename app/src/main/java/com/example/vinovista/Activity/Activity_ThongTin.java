@@ -31,11 +31,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Activity_ThemNhanVien extends AppCompatActivity {
+public class Activity_ThongTin extends AppCompatActivity {
     public static String SHARED_PRE = "shared_pre";
     ImageButton imbAnhNhanVienMoi;
     TextView edtTenNv, edtSoDienThoaiNV, edtDiaChi, edtMatKhau, edtLuong;
@@ -50,7 +47,7 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_them_nhan_vien);
+        setContentView(R.layout.activity_thong_tin);
         setControl();
         setEvent();
         nhanVien = (NhanVien) getIntent().getSerializableExtra("NhanVien");
@@ -90,14 +87,14 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), currentImageUri);
                         uploadImageToFirebase(bitmap);
                     } catch (IOException e) {
-                        Toast.makeText(Activity_ThemNhanVien.this, "Error in image processing: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Activity_ThongTin.this, "Error in image processing: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // Sử dụng ảnh hiện tại nếu người dùng không chọn ảnh mới
                     try {
                         LuuThongTin(nhanVienMoi(anh));
                     } catch (Exception e) {
-                        Toast.makeText(Activity_ThemNhanVien.this, "Error in saving employee info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Activity_ThongTin.this, "Error in saving employee info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -196,15 +193,15 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 anh = uri.toString();
-                Toast.makeText(Activity_ThemNhanVien.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Activity_ThongTin.this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
                 try {
                     LuuThongTin(nhanVienMoi(anh));
                 } catch (Exception e) {
-                    Toast.makeText(Activity_ThemNhanVien.this, "Error in saving employee info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_ThongTin.this, "Error in saving employee info: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }).addOnFailureListener(e -> {
-            Toast.makeText(Activity_ThemNhanVien.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Activity_ThongTin.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -219,10 +216,10 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
-                    Toast.makeText(Activity_ThemNhanVien.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_ThongTin.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(Activity_ThemNhanVien.this, "Add failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_ThongTin.this, "Add failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
