@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
     tools:context=".Fragment.Fragment_NhanVien">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/imbLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            android:paddingEnd="20dp"/>
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/selector_bg_edittext"
+            android:hint="Tìm nhân viên"/>
 
-</FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llThemNhanVien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:background="@drawable/selector_bg_button">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="THÊM NHÂN VIÊN"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/add_person"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/progressBar_danhsachnhanvien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvDanhSachNhanVien"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
+    </RelativeLayout>
+</LinearLayout>
