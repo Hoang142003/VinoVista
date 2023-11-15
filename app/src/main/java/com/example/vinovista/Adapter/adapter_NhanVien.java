@@ -34,7 +34,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
     ProgressBar progressBar_danhsachnhanvien;
 
     public adapter_NhanVien(Context context, ProgressBar progressBar_danhsachnhanvien) {
-        this.progressBar_danhsachnhanvien=progressBar_danhsachnhanvien;
+        this.progressBar_danhsachnhanvien = progressBar_danhsachnhanvien;
         this.context = context;
         khoiTao();
     }
@@ -56,8 +56,6 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
             public void onSuccess() {
                 // Ảnh đã được tải, ẩn ProgressBar
                 holder.progressBar_anh.setVisibility(View.GONE);
-                // Set viền khi đã load ảnh
-                //holder.ivAnhNhanVien.setBackgroundResource(R.drawable.border_image_nhanvien);
             }
 
             @Override
@@ -72,7 +70,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Activity_ThemNhanVien.class);
-                intent.putExtra("nhanVien", nhanVien);
+                intent.putExtra("NhanVien", nhanVien);
                 context.startActivity(intent);
             }
         });
@@ -97,50 +95,30 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ivAnhNhanVien = itemView.findViewById(R.id.ivAnhNhanVien);
-            imbChinhSua=itemView.findViewById(R.id.imbChinhSuaNhanVien);
+            imbChinhSua = itemView.findViewById(R.id.imbChinhSuaNhanVien);
             tvTenNhanVien = itemView.findViewById(R.id.tvTenNhanVien);
             tvLoaiNhanVien = itemView.findViewById(R.id.tvLoaiNhanVien);
-            progressBar_anh= itemView.findViewById(R.id.progressBar_anhnv);
+            progressBar_anh = itemView.findViewById(R.id.progressBar_anhnv);
         }
     }
 
     private void khoiTao() {
-        progressBar_danhsachnhanvien.setVisibility(View.GONE);
+
+        progressBar_danhsachnhanvien.setVisibility(View.VISIBLE);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Dữ liệu mới từ Firebase
-                ArrayList<NhanVien> newData = new ArrayList<>();
+                danhSachNhanVien.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     NhanVien nhanVien = dataSnapshot.getValue(NhanVien.class);
                     if (nhanVien != null) {
-                        newData.add(nhanVien);
+                        danhSachNhanVien.add(nhanVien);
                     }
                 }
+                notifyDataSetChanged();
 
-                // Xử lý sự kiện xóa
-                for (int i = 0; i < danhSachNhanVien.size(); i++) {
-                    NhanVien nhanVien = danhSachNhanVien.get(i);
-                    if (!newData.contains(nhanVien)) {
-                        danhSachNhanVien.remove(nhanVien);
-                        notifyItemRemoved(i);
-                    }
-                }
-
-                // Xử lý sự kiện thêm mới và cập nhật
-                for (NhanVien newNhanVien : newData) {
-                    int index = danhSachNhanVien.indexOf(newNhanVien);
-                    if (index != -1) {
-                        // Nếu NhanVien đã tồn tại, cập nhật nó
-                        danhSachNhanVien.set(index, newNhanVien);
-                        notifyItemChanged(index);
-                    } else {
-                        // Nếu NhanVien chưa tồn tại, thêm mới
-                        danhSachNhanVien.add(newNhanVien);
-                        notifyItemInserted(danhSachNhanVien.size() - 1);
-                    }
-                }
                 progressBar_danhsachnhanvien.setVisibility(View.GONE);
             }
 

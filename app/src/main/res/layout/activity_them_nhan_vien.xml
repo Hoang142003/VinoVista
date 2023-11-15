@@ -8,7 +8,8 @@
     tools:context=".Activity.Activity_ThemNhanVien">
 <RelativeLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
     <ProgressBar
         android:id="@+id/progressBar_NV"
         android:layout_width="wrap_content"
@@ -85,7 +86,7 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnDelete"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
@@ -95,7 +96,7 @@
             android:textStyle="bold"
             android:textColor="@color/begie" />
         <Button
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnSave"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"

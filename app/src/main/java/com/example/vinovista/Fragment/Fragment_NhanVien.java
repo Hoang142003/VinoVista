@@ -93,17 +93,11 @@ public class Fragment_NhanVien extends Fragment {
                 getContext().startActivity(intent);
             }
         });
-        llThemNhanVien.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Activity_ThemNhanVien.class);
-                getContext().startActivity(intent);
-            }
-        });
     }
 
     private void setControl(View view) {
         rcvDanhSachNhanVien = view.findViewById(R.id.rcvDanhSachNhanVien);
         llThemNhanVien = view.findViewById(R.id.llThemNhanVien);
+        progressBar_danhsachnhanvien=view.findViewById(R.id.progressBar_danhsachnhanvien);
     }
 }
