@@ -1,5 +1,7 @@
 package com.example.vinovista.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,38 +36,36 @@ public class Activity_ThanhToan extends AppCompatActivity {
     ImageButton btnQuayLai;
     EditText edtTenKhachHang, edtSoDienThoai;
     TextView tvTongHD, tvNhanVien, tvNgayLap;
+    Button btn_xuatfile, btn_Thanhtoan;
     RecyclerView rcvDanhSachSP;
     Adapter_ThanhToan_Hoadon adapter;
-    ArrayList<SanPham>arr_hoadon=new ArrayList<>();
+    ArrayList<SanPham> arr_hoadon = new ArrayList<>();
+    Date now = new Date();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    int tongtien = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanh_toan);
-//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
-//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
-//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
+
+        arr_hoadon.add(new SanPham("a", "a", "a", "a", "a", 1, 1, 2, 2));
+        arr_hoadon.add(new SanPham("a", "a", "a", "a", "a", 1, 1, 2, 2));
+        arr_hoadon.add(new SanPham("a", "a", "a", "a", "a", 1, 1, 2, 2));
         setControl();
+        Initialization();
         setEvent();
     }
-    private void setEvent() {
-        btnQuayLai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();  // Kết thúc Activity này và quay lại Activity trước đó
-            }
-        });
 
+    private void Initialization() {
         // Nhận dữ liệu từ Intent
 //        HoaDon hoaDon = (HoaDon) getIntent().getSerializableExtra("hoaDon");
 
         // Gán dữ liệu lên các View
-        double tongtien=0;
-        for(SanPham sanPham:arr_hoadon){
-            if(sanPham.getGiaSale()!=0){
-                tongtien+=sanPham.getGiaSale();
-            }
-            else {
-                tongtien+=sanPham.getGiaGoc();
+        for (SanPham sanPham : arr_hoadon) {
+            if (sanPham.getGiaSale() != 0) {
+                tongtien += sanPham.getGiaSale();
+            } else {
+                tongtien += sanPham.getGiaGoc();
             }
 
         }
@@ -73,13 +74,50 @@ public class Activity_ThanhToan extends AppCompatActivity {
         String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
         String name_staff = sharedPreferences.getString(DangNhap.name_staff, "");
         tvNhanVien.setText(name_staff);
-        Date now=new Date();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm");
         tvNgayLap.setText(dateFormat.format(now));
 
         // Khởi tạo adapter và gán cho RecyclerView
         adapter = new Adapter_ThanhToan_Hoadon(arr_hoadon);
         rcvDanhSachSP.setAdapter(adapter);
+        rcvDanhSachSP.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void setEvent() {
+        btnQuayLai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();  // Kết thúc Activity này và quay lại Activity trước đó
+            }
+        });
+        btn_Thanhtoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
+                String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
+                DatabaseReference reference_hoadon=FirebaseDatabase.getInstance().getReference("HoaDon");
+                DatabaseReference reference_chittiet_hoadon=FirebaseDatabase.getInstance().getReference("ChiTietHoaDon");
+                String id_hoadon=reference_hoadon.push().getKey();
+                HoaDon hoaDon=new HoaDon(id_hoadon,edtTenKhachHang.getText().toString().trim(),edtSoDienThoai.getText().toString(),dateFormat.format(now),id_staff_auto,tongtien);
+                reference_hoadon.setValue(hoaDon, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        for(SanPham sanPham:arr_hoadon){
+                            if (sanPham.getGiaSale() != 0) {
+                                int tong_gia_sanpham=sanPham.getSoLuong()*sanPham.getGiaSale();
+                                ChiTietHoaDon chiTietHoaDon=new ChiTietHoaDon(hoaDon.getIdHoaDon(),sanPham.getIdSanPham(),sanPham.getSoLuongDaBan(),tong_gia_sanpham);
+                                reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
+                            } else {
+                                int tong_gia_sanpham=sanPham.getSoLuong()*sanPham.getGiaGoc();
+                                ChiTietHoaDon chiTietHoaDon=new ChiTietHoaDon(hoaDon.getIdHoaDon(),sanPham.getIdSanPham(),sanPham.getSoLuongDaBan(),tong_gia_sanpham);
+                                reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
+                            }
+
+                        }
+
+                    }
+                });
+            }
+        });
 
     }
 
@@ -91,6 +129,7 @@ public class Activity_ThanhToan extends AppCompatActivity {
         tvNhanVien = findViewById(R.id.tvNhanVien_TTHD);
         tvNgayLap = findViewById(R.id.tvNgayLap_TTHD);
         rcvDanhSachSP = findViewById(R.id.rcvDanhSachSP_TTHD);
-        rcvDanhSachSP.setLayoutManager(new LinearLayoutManager(this));
+        btn_xuatfile = findViewById(R.id.btn_xuatfile);
+        btn_Thanhtoan = findViewById(R.id.btn_Thanhtoan);
     }
 }

@@ -32,11 +32,11 @@ public class Adapter_ThanhToan_Hoadon extends RecyclerView.Adapter<Adapter_Thanh
         SanPham sanPham = arr_sanpham.get(position);
         holder.tvTenSP.setText(sanPham.getTenSanPham());
         if (sanPham.getGiaSale() != 0) {
-            holder.tvGia.setText(sanPham.getGiaSale() + "đ");
+            holder.tvGia.setText("Giá: "+sanPham.getGiaSale() + "đ");
         } else {
-            holder.tvGia.setText(sanPham.getGiaGoc() + "đ");
+            holder.tvGia.setText("Giá: "+sanPham.getGiaGoc() + "đ");
         }
-        holder.tvSoLuong.setText(sanPham.getSoLuongDaBan());
+        holder.tvSoLuong.setText("Số lượng: "+sanPham.getSoLuongDaBan()+"");
     }
 
     @Override
