@@ -90,6 +90,7 @@ public class DangNhap extends AppCompatActivity {
                                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                                     editor.putString(id_staff, nhanVien.getSoDienThoai());
+                                                    editor.putString(name_staff, nhanVien.getHoTen());
                                                     editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
                                                     editor.apply();
                                                     Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
@@ -185,6 +186,7 @@ public class DangNhap extends AppCompatActivity {
                                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                                     editor.putString(id_staff, nhanVien.getSoDienThoai());
+                                                    editor.putString(name_staff, nhanVien.getHoTen());
                                                     editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
                                                     editor.apply();
                                                     Intent intent = new Intent(DangNhap.this, DangNhap.class);

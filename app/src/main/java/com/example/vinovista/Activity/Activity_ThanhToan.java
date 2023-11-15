@@ -1,17 +1,22 @@
 package com.example.vinovista.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.vinovista.Adapter.Adapter_ChiTietHoaDon;
+import com.example.vinovista.Adapter.Adapter_ThanhToan_Hoadon;
 import com.example.vinovista.Model.ChiTietHoaDon;
 import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.Model.SanPham;
@@ -31,19 +36,48 @@ public class Activity_ThanhToan extends AppCompatActivity {
     ImageButton btnQuayLai;
     EditText edtTenKhachHang, edtSoDienThoai;
     TextView tvTongHD, tvNhanVien, tvNgayLap;
+    Button btn_xuatfile, btn_Thanhtoan;
     RecyclerView rcvDanhSachSP;
-    Adapter_ChiTietHoaDon adapter;
-    ArrayList<SanPham>arr_hoadon=new ArrayList<>();
+    Adapter_ThanhToan_Hoadon adapter;
+    Date now = new Date();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    int tongtien = 0;
+    ArrayList<SanPham> arr_sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanh_toan);
-//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
-//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
-//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
+        arr_sp = (ArrayList<SanPham>) getIntent().getSerializableExtra("hoa_don");
         setControl();
+        Initialization();
         setEvent();
     }
+
+    private void Initialization() {
+        // Nhận dữ liệu từ Intent
+
+        // Gán dữ liệu lên các View
+        for (SanPham sanPham : arr_sp) {
+            if (sanPham.getGiaSale() != 0) {
+                tongtien += sanPham.getGiaSale()*sanPham.getSoLuongDaBan();
+            } else {
+                tongtien += sanPham.getGiaGoc()*sanPham.getSoLuongDaBan();
+            }
+
+        }
+        tvTongHD.setText(tongtien + "đ");
+        SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
+        String name_staff = sharedPreferences.getString(DangNhap.name_staff, "");
+        tvNhanVien.setText(name_staff);
+        tvNgayLap.setText(dateFormat.format(now));
+
+        // Khởi tạo adapter và gán cho RecyclerView
+        adapter = new Adapter_ThanhToan_Hoadon(arr_sp);
+        rcvDanhSachSP.setAdapter(adapter);
+        rcvDanhSachSP.setLayoutManager(new LinearLayoutManager(this));
+    }
+
     private void setEvent() {
         btnQuayLai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,57 +85,35 @@ public class Activity_ThanhToan extends AppCompatActivity {
                 finish();  // Kết thúc Activity này và quay lại Activity trước đó
             }
         });
-
-        // Nhận dữ liệu từ Intent
-//        HoaDon hoaDon = (HoaDon) getIntent().getSerializableExtra("hoaDon");
-
-        // Gán dữ liệu lên các View
-//        double tongtien=0;
-//        for(SanPham sanPham:arr_hoadon){
-//            tongtien+=hoadon
-//        }
-//        tvTongHD.setText(hoaDon.getTongHoaDon() + "đ");
-//        tvNhanVien.setText(hoaDon.getNhanVien());
-//        Date now=new Date();
-//        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm");
-//        tvNgayLap.setText(dateFormat.format(now));
-//
-//        // Giả sử bạn có phương thức này để lấy danh sách chi tiết hóa đơn dựa trên id_hoadon
-//        List<ChiTietHoaDon> listChiTiet = getDataFromDatabase(hoaDon.getIdHoaDon());
-
-        // Khởi tạo adapter và gán cho RecyclerView
-    //    adapter = new Adapter_ChiTietHoaDon(listChiTiet);
-        rcvDanhSachSP.setAdapter(adapter);
-
-    }
-
-    private List<ChiTietHoaDon> getDataFromDatabase(String hoaDonId) {
-        List<ChiTietHoaDon> listChiTiet = new ArrayList<>();
-
-        // Khởi tạo tham chiếu đến cơ sở dữ liệu
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ChiTietHoaDon");
-
-        // Thực hiện truy vấn dựa trên id_hoadon
-        databaseReference.child(hoaDonId).addListenerForSingleValueEvent(new ValueEventListener() {
+        btn_Thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot chiTietSnapshot : dataSnapshot.getChildren()) {
-                    ChiTietHoaDon chiTiet = chiTietSnapshot.getValue(ChiTietHoaDon.class);
-                    listChiTiet.add(chiTiet);
-                }
-                adapter.notifyDataSetChanged();
-            }
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
+                String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
+                DatabaseReference reference_hoadon = FirebaseDatabase.getInstance().getReference("HoaDon");
+                DatabaseReference reference_chittiet_hoadon = FirebaseDatabase.getInstance().getReference("ChiTietHoaDon");
+                String id_hoadon = reference_hoadon.push().getKey();
+                HoaDon hoaDon = new HoaDon(id_hoadon, edtTenKhachHang.getText().toString().trim(), edtSoDienThoai.getText().toString(), dateFormat.format(now), id_staff_auto, tongtien);
+                reference_hoadon.child(hoaDon.getIdHoaDon()).setValue(hoaDon, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        for (SanPham sanPham : arr_sp) {
+                            if (sanPham.getGiaSale() != 0) {
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSoLuongDaBan(), sanPham.getGiaSale());
+                                reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
+                            } else {
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSoLuongDaBan(), sanPham.getGiaGoc());
+                                reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
+                            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Xử lý lỗi ở đây
-                Log.w("FirebaseError", "loadPost:onCancelled", databaseError.toException());
+                        }
+
+                    }
+                });
             }
         });
 
-        return listChiTiet;
     }
-
 
     private void setControl() {
         btnQuayLai = findViewById(R.id.btnQuayLai_TTHD);
@@ -111,6 +123,7 @@ public class Activity_ThanhToan extends AppCompatActivity {
         tvNhanVien = findViewById(R.id.tvNhanVien_TTHD);
         tvNgayLap = findViewById(R.id.tvNgayLap_TTHD);
         rcvDanhSachSP = findViewById(R.id.rcvDanhSachSP_TTHD);
-        rcvDanhSachSP.setLayoutManager(new LinearLayoutManager(this));
+        btn_xuatfile = findViewById(R.id.btn_xuatfile);
+        btn_Thanhtoan = findViewById(R.id.btn_Thanhtoan);
     }
 }
