@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NhanVien implements Serializable {
-    String soDienThoai, matKhau, diaChi, anh, hoTen;
+    String soDienThoai, matKhau, diaChi, anh, hoTen,idLoaiNhanVien;
     double luong;
 
     public Map<String, Object> toMap() {
@@ -15,6 +15,7 @@ public class NhanVien implements Serializable {
         result.put("anh", anh);
         result.put("hoTen", hoTen);
         result.put("luong", luong);
+        result.put("idLoaiNhanVien", idLoaiNhanVien);
         return result;
     }
 
@@ -26,6 +27,7 @@ public class NhanVien implements Serializable {
                 ", diaChi='" + diaChi + '\'' +
                 ", anh='" + anh + '\'' +
                 ", hoTen='" + hoTen + '\'' +
+                ", idLoaiNhanVien='" + idLoaiNhanVien + '\'' +
                 ", luong=" + luong +
                 '}';
     }
@@ -33,12 +35,13 @@ public class NhanVien implements Serializable {
     public NhanVien() {
     }
 
-    public NhanVien(String soDienThoai, String matKhau, String diaChi, String anh, String hoTen, double luong) {
+    public NhanVien(String soDienThoai, String matKhau, String diaChi, String anh, String hoTen, String idLoaiNhanVien, double luong) {
         this.soDienThoai = soDienThoai;
         this.matKhau = matKhau;
         this.diaChi = diaChi;
         this.anh = anh;
         this.hoTen = hoTen;
+        this.idLoaiNhanVien = idLoaiNhanVien;
         this.luong = luong;
     }
 

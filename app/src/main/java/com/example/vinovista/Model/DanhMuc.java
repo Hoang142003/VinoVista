@@ -2,9 +2,8 @@ package com.example.vinovista.Model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-public class danhMuc {
+public class DanhMuc {
     String idDanhMuc,tenDanhMuc,anh;
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -23,12 +22,12 @@ public class danhMuc {
                 '}';
     }
 
-    public danhMuc(String idDanhMuc, String tenDanhMuc, String anh) {
+    public DanhMuc(String idDanhMuc, String tenDanhMuc, String anh) {
         this.idDanhMuc = idDanhMuc;
         this.tenDanhMuc = tenDanhMuc;
         this.anh = anh;
     }
 
-    public danhMuc() {
+    public DanhMuc() {
     }
 }
