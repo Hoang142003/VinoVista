@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vinovista.Activity.Activity_ThemNhanVien;
+import com.example.vinovista.Activity.Activity_ThongTin;
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -69,7 +67,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         holder.imbChinhSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Activity_ThemNhanVien.class);
+                Intent intent = new Intent(context, Activity_ThongTin.class);
                 intent.putExtra("NhanVien", nhanVien);
                 context.startActivity(intent);
             }

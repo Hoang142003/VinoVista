@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.example.vinovista.Activity.Activity_ThemNhanVien;
+import com.example.vinovista.Activity.Activity_ThongTin;
 import com.example.vinovista.Adapter.adapter_NhanVien;
 import com.example.vinovista.R;
 
@@ -89,7 +89,7 @@ public class Fragment_NhanVien extends Fragment {
         llThemNhanVien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), Activity_ThemNhanVien.class);
+                Intent intent=new Intent(getContext(), Activity_ThongTin.class);
                 getContext().startActivity(intent);
             }
         });
