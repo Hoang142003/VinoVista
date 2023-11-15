@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <ImageButton
+            android:id="@+id/btnQuayLai_TTHD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextView_QuanLyHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên khách hàng" />
+
+            <EditText
+                android:id="@+id/edtTenKhachHang_TTHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edt"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"/>
+
+            <TextView
+                style="@style/TextView_QuanLyHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại" />
+
+            <EditText
+                android:id="@+id/edtSoDienThoai_TTHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/edt"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                style="@style/TextView_QuanLyHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Danh sách các sản phẩm" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvDanhSachSP_TTHD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextView_QuanLyHoaDon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng hoá đơn: " />
+
+                <TextView
+                    android:id="@+id/edtTongHD_TTHD"
+                    style="@style/TextView_QuanLyHoaDon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextView_QuanLyHoaDon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nhân viên: " />
+
+                <TextView
+                    android:id="@+id/tvNhanVien_TTHD"
+                    style="@style/TextView_QuanLyHoaDon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextView_QuanLyHoaDon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày lập hoá đơn: " />
+
+                <TextView
+                    android:id="@+id/tvNgayLap_TTHD"
+                    style="@style/TextView_QuanLyHoaDon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <TextView
+                style="@style/TextView_QuanLyHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold|italic"
+                android:text="Hỗ trợ đổi trả trong vòng 30 ngày chưa qua sử dụng, tem còn nguyên vẹn, chưa tháo rời. Không hoàn tiền"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
