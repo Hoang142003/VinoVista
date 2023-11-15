@@ -1,5 +1,7 @@
 package com.example.vinovista.Activity;
 
+import static com.example.vinovista.Adapter.PasswordEncoder.generateSecretKey;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +16,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import javax.crypto.SecretKey;
 
 public class Activity_ThemNhanVien extends AppCompatActivity {
     ImageButton imbAnhNhanVienMoi;
@@ -40,6 +46,7 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
     Button btnSave;
     private String anh = null;
     NhanVien nhanVien;
+    ProgressBar progressBar_NV;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
@@ -62,8 +69,24 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
         edtDiaChi.setText(nhanVien.getDiaChi());
         edtLuong.setText(nhanVien.getLuong());
         edtLuong.setEnabled(false);
-        edtMatKhau.setText("");
+        edtMatKhau.setText(nhanVien.getMatKhau());
+        Picasso.get().load(nhanVien.getAnh()).into(imbAnhNhanVienMoi, new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                // Ảnh đã được tải, ẩn ProgressBar
+                progressBar_NV.setVisibility(View.GONE);
+                // Set viền khi đã load ảnh
+                //holder.ivAnhNhanVien.setBackgroundResource(R.drawable.border_image_nhanvien);
+            }
 
+            @Override
+            public void onError(Exception e) {
+                // Có lỗi khi tải ảnh, ẩn ProgressBar và có thể hiển thị ảnh lỗi
+                progressBar_NV.setVisibility(View.GONE);
+                // Set ảnh lỗi nếu có
+                imbAnhNhanVienMoi.setImageResource(R.drawable.person);
+            }
+        });
     }
 
     private void setControl() {
@@ -74,6 +97,7 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
         edtMatKhau = findViewById(R.id.edtMatKhau);
         edtLuong = findViewById(R.id.edtLuong);
         btnSave = findViewById(R.id.btnSave);
+        progressBar_NV=findViewById(R.id.progressBar_NV);
     }
 
     private void setEvent() {
@@ -120,15 +144,20 @@ public class Activity_ThemNhanVien extends AppCompatActivity {
 
 
     NhanVien nhanVienMoi() {
-        String ten = edtTenNv.getText().toString(),
-                diaChi = edtDiaChi.getText().toString(),
-                soDienThoai = edtSoDienThoaiNV.getText().toString(),
-                matKhau = PasswordEncoder.encrypt(edtMatKhau.getText().toString()),
-                loaiNhanVien = "1",
-                luong = String.valueOf(edtLuong.getText());
-        anh = anh;
-        NhanVien nhanVien = new NhanVien(soDienThoai, ten, matKhau, diaChi, anh, loaiNhanVien, Integer.parseInt(luong));
-        return nhanVien;
+        try {
+            SecretKey secretKey =  generateSecretKey();
+            String ten = edtTenNv.getText().toString(),
+                    diaChi = edtDiaChi.getText().toString(),
+                    soDienThoai = edtSoDienThoaiNV.getText().toString(),
+                    matKhau = PasswordEncoder.encrypt(edtMatKhau.getText().toString(),secretKey),
+                    loaiNhanVien = "1",
+                    luong = String.valueOf(edtLuong.getText());
+            anh = anh;
+            NhanVien nhanVien = new NhanVien(soDienThoai, ten, matKhau, diaChi, anh, loaiNhanVien, Integer.parseInt(luong));
+            return nhanVien;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void showImagePickDialog() {

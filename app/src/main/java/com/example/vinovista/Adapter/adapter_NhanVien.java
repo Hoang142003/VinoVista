@@ -51,7 +51,6 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
         NhanVien nhanVien = danhSachNhanVien.get(position);
         holder.tvTenNhanVien.setText(nhanVien.getHoTen());
         holder.tvLoaiNhanVien.setText(setTenLoaiNhanVien(nhanVien));
-        Picasso.get().load(nhanVien.getAnh()).into(holder.ivAnhNhanVien);
         Picasso.get().load(nhanVien.getAnh()).into(holder.ivAnhNhanVien, new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {

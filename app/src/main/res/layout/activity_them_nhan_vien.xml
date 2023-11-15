@@ -6,7 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.Activity_ThemNhanVien">
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ProgressBar
+        android:id="@+id/progressBar_NV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
     <ImageButton
         android:id="@+id/imbAnhNhanVienMoi"
         android:layout_width="200dp"
@@ -15,6 +24,7 @@
         android:layout_margin="30dp"
         android:background="@color/begie"
         android:gravity="center_vertical" />
+</RelativeLayout>
 
     <EditText
         android:id="@+id/edtTenNv"
