@@ -38,9 +38,9 @@ public class Activity_ThanhToan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanh_toan);
-        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
-        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
-        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
+//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
+//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
+//        arr_hoadon.add(new SanPham("a","a","a","a",1,1,1,2));
         setControl();
         setEvent();
     }
