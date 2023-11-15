@@ -1,23 +1,15 @@
 package com.example.vinovista.Adapter_TrangChuSanPham;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,15 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class chitietsanpham extends AppCompatActivity {
     private DatabaseReference chiTietDonRef;
     RecyclerView recyclerView;
-    Adapter_SanPham sanPhamAdapter;
+    Adapter_SanPhamLuotMua sanPhamAdapter;
     ImageButton imageButton;
     TextView tvTenSP,tvMota,tvGiaSp;
     Button btnThem;
@@ -73,34 +62,6 @@ public class chitietsanpham extends AppCompatActivity {
     }
 
     private void setEvent() {
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        sanPhamAdapter = new Adapter_SanPham();
-        recyclerView.setAdapter(sanPhamAdapter);
-
-        String sanphamid = getIntent().getStringExtra("sanphamid");
-        if (sanphamid != null) {
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("SanPham").child(sanphamid);
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    SanPham nv = dataSnapshot.getValue(SanPham.class);
-                    if (nv != null) {
-                        tvTenSP.setText(nv.getTenSanPham());
-                        tvGiaSp.setText(nv.getGiaGoc());
-                        tvMota.setText(nv.getMoTa());
-                    }
-                }
-
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Xử lý khi có lỗi
-                    Toast.makeText(chitietsanpham.this, "Lỗi: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

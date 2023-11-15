@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.vinovista.Activity.Activity_ThanhToan;
 import com.example.vinovista.Adapter.Photo_Adapter;
 import com.example.vinovista.Model.SanPham;
 import com.example.vinovista.R;
@@ -29,11 +31,17 @@ import java.util.ArrayList;
 import me.relex.circleindicator.CircleIndicator3;
 
 public class trangchusanpham extends AppCompatActivity {
-    private RecyclerView rcvSPmua, rcvSpban,rcvSPtot, rcvChiTietDon;
-    private Adapter_SanPham sanPhamAdapter;
+    private RecyclerView rcvSPmua, rcvChiTietDon;
+
+    private Adapter_SanPhamLuotMua sanPhamAdapter;
+    private  Adapter_ChiTietDon chiTietDon=new Adapter_ChiTietDon();
+
     ViewPager2 vpiv;
     CircleIndicator3 ci;
     ArrayList<String> sanPhams = new ArrayList<>();
+    Button btnTiepTuc;
+
+    ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,23 +97,15 @@ public class trangchusanpham extends AppCompatActivity {
     }
 
     private void setEvent() {
-        sanPhamAdapter = new Adapter_SanPham();
-        rcvSPmua.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcvSPmua.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-
+        sanPhamAdapter = new Adapter_SanPhamLuotMua(chiTietDon);
+        rcvSPmua.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rcvSPmua.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         rcvSPmua.setAdapter(sanPhamAdapter);
 
-        rcvSpban.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcvSpban.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        rcvSpban.setAdapter(sanPhamAdapter);
-
-        rcvSPtot.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rcvSPtot.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        rcvSPtot.setAdapter(sanPhamAdapter);
 
         rcvChiTietDon.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rcvChiTietDon.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        rcvChiTietDon.setAdapter(sanPhamAdapter);
+        rcvChiTietDon.setAdapter(chiTietDon);
     }
     private void AutoSlideImage() {
 //        if(mTimer==null){
@@ -150,16 +150,24 @@ public class trangchusanpham extends AppCompatActivity {
                 handler.postDelayed(runnable, 3000);
             }
         });
+        btnTiepTuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(trangchusanpham.this, Activity_ThanhToan.class);
+                intent.putExtra("hoa_don",chiTietDon.getData());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setContent() {
         rcvChiTietDon = findViewById(R.id.rcvChiTietDon);
         rcvChiTietDon = findViewById(R.id.rcvChiTietDon);
-        rcvSpban = findViewById(R.id.rcvSanPhamLuotBan);
         rcvSPmua = findViewById(R.id.rcvSanPhamLuotMua);
-        rcvSPtot= findViewById(R.id.rcvSanPhamGiaTot);
         vpiv = findViewById(R.id.vpiv);
         ci = findViewById(R.id.ci);
+        btnTiepTuc = findViewById(R.id.btnTiepTuc);
+
 
     }
 }

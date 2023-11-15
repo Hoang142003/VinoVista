@@ -2,6 +2,7 @@ package com.example.vinovista.Adapter_TrangChuSanPham;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +24,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.MyViewHolder> {
+public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPhamLuotMua.MyViewHolder> {
 
-    private ArrayList<SanPham> datalist = new ArrayList<>();
-
-    public Adapter_SanPham() {
+    private ArrayList<SanPham> datalist=new ArrayList<>();
+    Adapter_ChiTietDon chiTietDon;
+    public Adapter_SanPhamLuotMua(Adapter_ChiTietDon chiTietDon) {
+        this.chiTietDon=chiTietDon;
         khoi_tao();
     }
-
 
 
 
@@ -44,6 +45,7 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         SanPham dataItem = datalist.get(position);
+
         holder.tvten.setText(dataItem.getTenSanPham());
         holder.tvgia.setText(String.valueOf(dataItem.getGiaGoc()) + " VND");
         holder.tvsoluong.setText(String.valueOf(dataItem.getSoLuong()));
@@ -64,36 +66,41 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.MyView
                 view.getContext().startActivity(intent);
             }
         });
-//        holder.imgbAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (datalisthoadon.contains(dataItem)) {
-//                    int index = datalisthoadon.indexOf(dataItem);
-//                    dataItem.setSoLuongDaBan(datalisthoadon.get(index).getSoLuongDaBan()+1);
-//                    datalisthoadon.set(index, dataItem); // Thay thế đối tượng tại vị trí tìm thấy
-//
-//                } else {
-//                    datalisthoadon.add(dataItem); // Thêm sách mới nếu không tìm thấy
-//
-//                }
-//            }
-//        });
-
+        holder.imgbAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (chiTietDon.getData().contains(dataItem)) {
+                    int index = chiTietDon.getData().indexOf(dataItem);
+                    chiTietDon.getData().get(index).setSoLuongDaBan(dataItem.getSoLuongDaBan() + 1);
+                    Log.e("a",""+dataItem.getSoLuongDaBan() + 1);
+                } else {
+                    dataItem.setSoLuongDaBan(dataItem.getSoLuongDaBan() + 1);
+                    chiTietDon.getData().add(dataItem);
+                }
+                chiTietDon.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return datalist.size();
+        if(datalist!=null) {
+            return datalist.size();
+        }
+        return 0;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvten, tvgia, tvsoluong,tvgiasale;
+        TextView tvten, tvgia, tvsoluong, tvgiasale;
         ImageButton imgbAdd;
         ImageView imganhsp;
+        ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
+
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgbAdd = itemView.findViewById(R.id.imgbAdd);
             tvgiasale = itemView.findViewById(R.id.tvGiaSale);
             tvten = itemView.findViewById(R.id.tvTenSP);
             tvgia = itemView.findViewById(R.id.tvGiaSP);
@@ -102,6 +109,7 @@ public class Adapter_SanPham extends RecyclerView.Adapter<Adapter_SanPham.MyView
 
         }
     }
+
     private void khoi_tao() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("SanPham");
         reference.addValueEventListener(new ValueEventListener() {
