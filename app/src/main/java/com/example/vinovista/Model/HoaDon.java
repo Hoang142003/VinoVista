@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class HoaDon implements Serializable {
     String idHoaDon, tenKhachHang, soDienThoai, ngayMua, nhanVien;
-    Double tongHoaDon;
+    int tongHoaDon;
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -32,7 +32,7 @@ public class HoaDon implements Serializable {
     public HoaDon() {
     }
 
-    public HoaDon(String idHoaDon, String tenKhachHang, String soDienThoai, String ngayMua, String nhanVien,Double tongHoaDon) {
+    public HoaDon(String idHoaDon, String tenKhachHang, String soDienThoai, String ngayMua, String nhanVien,int tongHoaDon) {
         this.idHoaDon = idHoaDon;
         this.tenKhachHang = tenKhachHang;
         this.soDienThoai = soDienThoai;
@@ -81,11 +81,11 @@ public class HoaDon implements Serializable {
         this.nhanVien = nhanVien;
     }
 
-    public Double getTongHoaDon() {
+    public int getTongHoaDon() {
         return tongHoaDon;
     }
 
-    public void setTongHoaDon(Double tongHoaDon) {
+    public void setTongHoaDon(int tongHoaDon) {
         this.tongHoaDon = tongHoaDon;
     }
 }
