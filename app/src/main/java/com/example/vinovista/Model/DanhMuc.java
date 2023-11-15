@@ -5,6 +5,31 @@ import java.util.Map;
 
 public class DanhMuc {
     String idDanhMuc,tenDanhMuc,anh;
+
+    public String getIdDanhMuc() {
+        return idDanhMuc;
+    }
+
+    public void setIdDanhMuc(String idDanhMuc) {
+        this.idDanhMuc = idDanhMuc;
+    }
+
+    public String getTenDanhMuc() {
+        return tenDanhMuc;
+    }
+
+    public void setTenDanhMuc(String tenDanhMuc) {
+        this.tenDanhMuc = tenDanhMuc;
+    }
+
+    public String getAnh() {
+        return anh;
+    }
+
+    public void setAnh(String anh) {
+        this.anh = anh;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("tenDanhMuc", tenDanhMuc);
