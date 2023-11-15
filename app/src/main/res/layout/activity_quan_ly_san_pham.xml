@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <EditText
+
+            android:id="@+id/edtTimKiem"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:textColor="#000000"
+            style="@style/edt"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:hint="Từ khóa tìm kiếm..."
+            ></EditText>
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_1"
+            android:text="Quản lý danh mục"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            ></Button>
+            <Spinner
+                android:id="@+id/spnDanhMuc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></Spinner>
+<!--        <LinearLayout-->
+<!--            android:background="#F8E4CC"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            >-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="180dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:orientation="vertical">-->
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:background="@drawable/hinhruou"-->
+<!--                    ></ImageView>-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Rượu lâu năm"-->
+<!--                    android:textFontWeight="20"-->
+<!--                    ></TextView>-->
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="160dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:orientation="vertical">-->
+<!--                <ImageView-->
+<!--                    android:layout_width="65dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:background="@drawable/hinhruou"></ImageView>-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Rượu rẻ"-->
+<!--                    ></TextView>-->
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:orientation="vertical">-->
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:background="@drawable/hinhruou"-->
+<!--                    ></ImageView>-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Rượu đắt"-->
+<!--                    ></TextView>-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sản phẩm mới"
+            android:background="@drawable/bg_button_1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:id="@+id/btnSanPhamMoi"
+            ></Button>
+        <RelativeLayout
+            android:id="@+id/root_view"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvSanPham"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
