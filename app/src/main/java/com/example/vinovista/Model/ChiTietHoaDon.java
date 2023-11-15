@@ -1,6 +1,6 @@
 package com.example.vinovista.Model;
 
-public class chiTietHoaDon {
+public class ChiTietHoaDon {
     String idHoaDon, idSanPham;
     int soLuong, gia;
 
@@ -14,14 +14,14 @@ public class chiTietHoaDon {
                 '}';
     }
 
-    public chiTietHoaDon(String idHoaDon, String idSanPham, int soLuong, int gia) {
+    public ChiTietHoaDon(String idHoaDon, String idSanPham, int soLuong, int gia) {
         this.idHoaDon = idHoaDon;
         this.idSanPham = idSanPham;
         this.soLuong = soLuong;
         this.gia = gia;
     }
 
-    public chiTietHoaDon() {
+    public ChiTietHoaDon() {
     }
 
     public String getIdHoaDon() {

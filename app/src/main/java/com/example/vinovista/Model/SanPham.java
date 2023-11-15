@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class sanPham implements Serializable {
+public class SanPham implements Serializable {
     String idSanPham, tenSanPham, moTa, idDanhMuc;
     int soLuong, giaGoc, giaSale, soLuongDaBan;
 
@@ -35,10 +35,10 @@ public class sanPham implements Serializable {
                 '}';
     }
 
-    public sanPham() {
+    public SanPham() {
     }
 
-    public sanPham(String idSanPham, String tenSanPham, String moTa, String idDanhMuc, int soLuong, int giaGoc, int giaSale, int soLuongDaBan) {
+    public SanPham(String idSanPham, String tenSanPham, String moTa, String idDanhMuc, int soLuong, int giaGoc, int giaSale, int soLuongDaBan) {
         this.idSanPham = idSanPham;
         this.tenSanPham = tenSanPham;
         this.moTa = moTa;

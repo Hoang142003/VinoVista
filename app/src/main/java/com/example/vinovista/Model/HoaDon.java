@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class hoaDon implements Serializable {
-    String idHoaDon, tenKhachHang, soDienThoai, ngayMua, nhanVien, idChiTietHoaDon;
+public class HoaDon implements Serializable {
+    String idHoaDon, tenKhachHang, soDienThoai, ngayMua, nhanVien;
     Double tongHoaDon;
 
     public Map<String, Object> toMap() {
@@ -25,21 +25,19 @@ public class hoaDon implements Serializable {
                 ", soDienThoai='" + soDienThoai + '\'' +
                 ", ngayMua='" + ngayMua + '\'' +
                 ", nhanVien='" + nhanVien + '\'' +
-                ", idChiTietHoaDon='" + idChiTietHoaDon + '\'' +
                 ", tongHoaDon=" + tongHoaDon +
                 '}';
     }
 
-    public hoaDon() {
+    public HoaDon() {
     }
 
-    public hoaDon(String idHoaDon, String tenKhachHang, String soDienThoai, String ngayMua, String nhanVien, String idChiTietHoaDon, Double tongHoaDon) {
+    public HoaDon(String idHoaDon, String tenKhachHang, String soDienThoai, String ngayMua, String nhanVien,Double tongHoaDon) {
         this.idHoaDon = idHoaDon;
         this.tenKhachHang = tenKhachHang;
         this.soDienThoai = soDienThoai;
         this.ngayMua = ngayMua;
         this.nhanVien = nhanVien;
-        this.idChiTietHoaDon = idChiTietHoaDon;
         this.tongHoaDon = tongHoaDon;
     }
 
@@ -81,14 +79,6 @@ public class hoaDon implements Serializable {
 
     public void setNhanVien(String nhanVien) {
         this.nhanVien = nhanVien;
-    }
-
-    public String getIdChiTietHoaDon() {
-        return idChiTietHoaDon;
-    }
-
-    public void setIdChiTietHoaDon(String idChiTietHoaDon) {
-        this.idChiTietHoaDon = idChiTietHoaDon;
     }
 
     public Double getTongHoaDon() {
