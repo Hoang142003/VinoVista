@@ -7,7 +7,20 @@ import java.util.Objects;
 
 public class SanPham implements Serializable {
     String idSanPham, tenSanPham, moTa, idDanhMuc,anhSanPham;
-    int soLuong, giaGoc, giaSale, soLuongDaBan;
+    int soLuong;
+    int giaGoc;
+    int giaSale;
+    int soLuongDaBan;
+
+    public int getSl_dat_hang() {
+        return sl_dat_hang;
+    }
+
+    public void setSl_dat_hang(int sl_dat_hang) {
+        this.sl_dat_hang = sl_dat_hang;
+    }
+
+    int sl_dat_hang;
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();

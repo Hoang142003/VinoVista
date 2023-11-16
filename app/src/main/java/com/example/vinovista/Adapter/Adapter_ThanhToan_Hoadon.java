@@ -36,7 +36,7 @@ public class Adapter_ThanhToan_Hoadon extends RecyclerView.Adapter<Adapter_Thanh
         } else {
             holder.tvGia.setText("Giá: "+sanPham.getGiaGoc() + "đ");
         }
-        holder.tvSoLuong.setText("Số lượng: "+sanPham.getSoLuongDaBan()+"");
+        holder.tvSoLuong.setText("Số lượng: "+sanPham.getSl_dat_hang()+"");
     }
 
     @Override
