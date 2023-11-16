@@ -88,8 +88,19 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvSanPhamLuotMua"
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="250dp" />
+        <TextView
+            style="@style/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách sản phẩm ban chạy:"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvSanPhamBanCHay"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
         <TextView
             style="@style/tv"
             android:layout_width="wrap_content"
@@ -118,7 +129,7 @@
             android:gravity="right">
 
             <Button
-                android:id="@+id/btnBtnHuy"
+                android:id="@+id/btnHuy"
                 style="@style/btnHuy"
                 android:text="Hủy" />
             <Button
