@@ -40,6 +40,7 @@
                 style="@style/TextView_QuanLyHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:text="Số điện thoại" />
 
             <EditText
@@ -49,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="20dp"
+                android:inputType="number" />
 
             <TextView
                 style="@style/TextView_QuanLyHoaDon"
@@ -93,7 +95,7 @@
                     style="@style/TextView_QuanLyHoaDon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nhân viên: " />
+                    android:text="Nhân viên hỗ trợ: " />
 
                 <TextView
                     android:id="@+id/tvNhanVien_TTHD"
@@ -139,19 +141,19 @@
             <Button
                 android:id="@+id/btn_xuatfile"
                 style="@style/btn"
-                android:layout_width="165dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Xuất file"
-                android:textSize="15dp"/>
+                android:text="Xuất hóa đơn"
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/btn_Thanhtoan"
                 style="@style/btn"
-                android:layout_width="165dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:text="Thanh toán"
-                android:textSize="15dp"
-                android:layout_alignParentRight="true"/>
+                android:textSize="15dp" />
 
         </RelativeLayout>
     </LinearLayout>

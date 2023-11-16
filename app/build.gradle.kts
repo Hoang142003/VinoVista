@@ -57,6 +57,14 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Thu vien chuyen anh
-    implementation ("me.relex:circleindicator:2.1.6")
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("me.relex:circleindicator:2.1.6")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Thu vien apache
+    implementation("org.apache.commons:commons-compress:1.21")
+    implementation("org.apache.poi:poi:4.1.2")
+    implementation("org.apache.poi:poi-ooxml:4.1.2")
+    implementation("javax.xml.stream:stax-api:1.0")
+
+    implementation("org.apache.xmlbeans:xmlbeans:3.1.0")
 }
