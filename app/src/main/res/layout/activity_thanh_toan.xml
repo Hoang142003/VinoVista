@@ -30,11 +30,11 @@
 
             <EditText
                 android:id="@+id/edtTenKhachHang_TTHD"
+                style="@style/edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/edt"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"/>
+                android:layout_marginRight="0dp" />
 
             <TextView
                 style="@style/TextView_QuanLyHoaDon"
@@ -44,9 +44,9 @@
 
             <EditText
                 android:id="@+id/edtSoDienThoai_TTHD"
+                style="@style/edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/edt"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginBottom="20dp" />
@@ -122,12 +122,37 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
             <TextView
                 style="@style/TextView_QuanLyHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold|italic"
-                android:text="Hỗ trợ đổi trả trong vòng 30 ngày chưa qua sử dụng, tem còn nguyên vẹn, chưa tháo rời. Không hoàn tiền"/>
+                android:text="Hỗ trợ đổi trả trong vòng 30 ngày chưa qua sử dụng, tem còn nguyên vẹn, chưa tháo rời. Không hoàn tiền"
+                android:textStyle="bold|italic" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btn_xuatfile"
+                style="@style/btn"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:text="Xuất file"
+                android:textSize="15dp"/>
+
+            <Button
+                android:id="@+id/btn_Thanhtoan"
+                style="@style/btn"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán"
+                android:textSize="15dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

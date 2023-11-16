@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vinovista.Model.SanPham;
 import com.example.vinovista.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.MyViewHolder>{
+public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.MyViewHolder> implements Serializable{
     public Adapter_ChiTietDon() {
         this.data = data;
     }
@@ -45,7 +46,7 @@ public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.
         }else {
             holder.tvGiaCTD.setText(data.get(position).getGiaGoc()+"");
         }
-      holder.edtSonguoi.setText(data.get(position).getSoLuongDaBan()+"");
+      holder.edtSonguoi.setText(data.get(position).getSl_dat_hang()+"");
     }
 
     @Override
