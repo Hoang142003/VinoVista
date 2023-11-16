@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vinovista.Adapter.Adapter_ChiTietHoaDon;
 import com.example.vinovista.Adapter.Adapter_ThanhToan_Hoadon;
+import com.example.vinovista.Adapter_TrangChuSanPham.Adapter_ChiTietDon;
 import com.example.vinovista.Model.ChiTietHoaDon;
 import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.Model.SanPham;
@@ -60,9 +62,9 @@ public class Activity_ThanhToan extends AppCompatActivity {
         // Gán dữ liệu lên các View
         for (SanPham sanPham : arr_sp) {
             if (sanPham.getGiaSale() != 0) {
-                tongtien += sanPham.getGiaSale()*sanPham.getSoLuongDaBan();
+                tongtien += sanPham.getGiaSale()*sanPham.getSl_dat_hang();
             } else {
-                tongtien += sanPham.getGiaGoc()*sanPham.getSoLuongDaBan();
+                tongtien += sanPham.getGiaGoc()*sanPham.getSl_dat_hang();
             }
 
         }
@@ -88,6 +90,7 @@ public class Activity_ThanhToan extends AppCompatActivity {
         btn_Thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseReference reference_edit_sp=FirebaseDatabase.getInstance().getReference("SanPham");
                 SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
                 String id_staff_auto = sharedPreferences.getString(DangNhap.id_staff, "");
                 DatabaseReference reference_hoadon = FirebaseDatabase.getInstance().getReference("HoaDon");
@@ -99,15 +102,18 @@ public class Activity_ThanhToan extends AppCompatActivity {
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         for (SanPham sanPham : arr_sp) {
                             if (sanPham.getGiaSale() != 0) {
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSoLuongDaBan(), sanPham.getGiaSale());
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSl_dat_hang(), sanPham.getGiaSale());
                                 reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
                             } else {
-                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSoLuongDaBan(), sanPham.getGiaGoc());
+                                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon.getIdHoaDon(), sanPham.getIdSanPham(), sanPham.getSl_dat_hang(), sanPham.getGiaGoc());
                                 reference_chittiet_hoadon.child(hoaDon.getIdHoaDon()).child(sanPham.getIdSanPham()).setValue(chiTietHoaDon);
                             }
-
+                            sanPham.setSoLuong(sanPham.getSoLuong()-sanPham.getSl_dat_hang());
+                            sanPham.setSoLuongDaBan(sanPham.getSoLuongDaBan()+sanPham.getSl_dat_hang());
+                            reference_edit_sp.child(sanPham.getIdSanPham()).updateChildren(sanPham.toMap());
                         }
-
+                        Toast.makeText(Activity_ThanhToan.this, "Thanh toán thành công!!!", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
             }

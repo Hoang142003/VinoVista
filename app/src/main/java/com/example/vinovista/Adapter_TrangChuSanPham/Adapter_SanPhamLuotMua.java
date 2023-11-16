@@ -71,10 +71,9 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
             public void onClick(View view) {
                 if (chiTietDon.getData().contains(dataItem)) {
                     int index = chiTietDon.getData().indexOf(dataItem);
-                    chiTietDon.getData().get(index).setSoLuongDaBan(dataItem.getSoLuongDaBan() + 1);
-                    Log.e("a",""+dataItem.getSoLuongDaBan() + 1);
+                    chiTietDon.getData().get(index).setSl_dat_hang(chiTietDon.getData().get(index).getSl_dat_hang() + 1);
                 } else {
-                    dataItem.setSoLuongDaBan(dataItem.getSoLuongDaBan() + 1);
+                    dataItem.setSl_dat_hang(1);
                     chiTietDon.getData().add(dataItem);
                 }
                 chiTietDon.notifyDataSetChanged();
