@@ -156,33 +156,33 @@ public class Activity_ThongTin extends AppCompatActivity {
         });
     }
     void kiemtra(NhanVien nhanVien, String type) {
-        if (nhanVien != null && type.equals("edit")) {
+        if (nhanVien != null && "edit".equals(type)) {
+            // Trường hợp nhanVien không null và type là "edit"
             fillData(nhanVien);
-            //chỉ hiện các nút lưu và xóa
-            btnDelete.setVisibility(View.VISIBLE);
-            btnSave.setVisibility(View.VISIBLE);
-            anh = nhanVien.getAnh(); // Lưu URL ảnh hiện tại
-        } else if (nhanVien!=null&&type!=null){
-            if (type.equals("add")) {
-                //ẩn các nút
-                btnDelete.setVisibility(View.GONE);
-                //chỉ hiện nút lưu
-                btnSave.setVisibility(View.VISIBLE);
-            } else if (idNhanVien == null) {
+            anh = nhanVien.getAnh();
+            setButtonVisibility(true, true, false);
+        } else if (nhanVien == null && type != null) {
+            if ("add".equals(type) && idNhanVien != null) {
+                // Trường hợp thêm mới nhanVien khi idNhanVien là null
+                setButtonVisibility(false, true, false);
+            } else {
+                // Trường hợp khác khi nhanVien là null và type không null
                 getProfile(idNhanVien);
-                //ẩn các nút
-                btnDelete.setVisibility(View.GONE);
-                btnSave.setVisibility(View.GONE);
+                setButtonVisibility(false, false, false);
             }
-        }else if (nhanVien==null&&type==null){
+        } else if (nhanVien == null && type == null) {
+            // Trường hợp cả nhanVien và type đều null
             getProfile(idNhanVien);
-            //ẩn các nút
-            btnDelete.setVisibility(View.GONE);
-            btnSave.setVisibility(View.GONE);
-            //hiện nút đăng xuất
-            btnLogout.setVisibility(View.VISIBLE);
+            setButtonVisibility(false, false, true);
         }
     }
+
+    private void setButtonVisibility(boolean showDelete, boolean showSave, boolean showLogout) {
+        btnDelete.setVisibility(showDelete ? View.VISIBLE : View.GONE);
+        btnSave.setVisibility(showSave ? View.VISIBLE : View.GONE);
+        btnLogout.setVisibility(showLogout ? View.VISIBLE : View.GONE);
+    }
+
 
 
     //sửa thông tin nhân viên
