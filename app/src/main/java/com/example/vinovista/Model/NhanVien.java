@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class NhanVien implements Serializable {
-    String soDienThoai, matKhau, diaChi, anh, hoTen, idLoaiNhanVien;
+    String soDienThoai, matKhau, diaChi, anh, hoTen, idLoaiNhanVien,token;
     int luong;
 
     public Map<String, Object> toMap() {
@@ -18,6 +18,14 @@ public class NhanVien implements Serializable {
         result.put("luong", luong);
         result.put("idLoaiNhanVien", idLoaiNhanVien);
         return result;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

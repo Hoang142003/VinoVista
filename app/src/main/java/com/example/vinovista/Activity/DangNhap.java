@@ -21,11 +21,14 @@ import com.example.vinovista.Adapter_TrangChuSanPham.trangchusanpham;
 import com.example.vinovista.Model.LoaiNhanVien;
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DangNhap extends AppCompatActivity {
     TextView tvquenmatkhau;
@@ -44,7 +47,21 @@ public class DangNhap extends AppCompatActivity {
         AutoLogin();
         setControl();
         setEvent();
+        getAndSaveFCMToken();
 
+    }
+    private void getAndSaveFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                           System.out.println(task.getResult());
+                        } else {
+                            System.out.println("Không lấy và lưu được fcm token");
+                        }
+                    }
+                });
     }
     private void setEvent() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("NhanVien");
