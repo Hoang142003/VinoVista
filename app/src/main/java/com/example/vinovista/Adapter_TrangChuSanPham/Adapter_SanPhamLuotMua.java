@@ -28,7 +28,7 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
 
     private ArrayList<SanPham> datalist=new ArrayList<>();
     Adapter_ChiTietDon chiTietDon;
-    public Adapter_SanPhamLuotMua(Adapter_ChiTietDon chiTietDon) {
+    public Adapter_SanPhamLuotMua(Adapter_ChiTietDon chiTietDon, ArrayList<SanPham> sanPhamArrayList) {
         this.chiTietDon=chiTietDon;
         khoi_tao();
     }

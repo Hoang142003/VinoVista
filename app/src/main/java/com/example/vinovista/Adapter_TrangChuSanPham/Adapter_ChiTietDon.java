@@ -31,6 +31,10 @@ public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.
     public void setData(ArrayList<SanPham> data) {
         this.data = data;
     }
+    public void clearData() {
+        data.clear();
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
