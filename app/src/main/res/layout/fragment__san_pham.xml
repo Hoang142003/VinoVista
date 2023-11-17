@@ -107,11 +107,11 @@
         <RelativeLayout
             android:id="@+id/root_view"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvSanPham"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="match_parent"
                 >
 
             </androidx.recyclerview.widget.RecyclerView>

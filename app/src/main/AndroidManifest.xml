@@ -19,6 +19,15 @@
             android:name=".Activity.Activity_Sua_San_Pham"
             android:exported="false" />
         <activity
+            android:name=".Activity.Activity_Quan_Ly_Danh_Muc"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_Sua_Danh_Muc"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_Them_Danh_Muc"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ThongTinHoaDon"
             android:exported="false" />
         <activity
