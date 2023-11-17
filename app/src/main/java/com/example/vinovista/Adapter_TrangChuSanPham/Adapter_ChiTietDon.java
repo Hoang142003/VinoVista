@@ -44,6 +44,7 @@ public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_ChiTietDon.MyViewHolder holder, int position) {
+        SanPham sanPham = data.get(position);
         holder.tvTenCTD.setText(data.get(position).getTenSanPham());
         if (data.get(position).getGiaSale()!=0){
             holder.tvGiaCTD.setText(data.get(position).getGiaSale()+"");
@@ -51,6 +52,27 @@ public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.
             holder.tvGiaCTD.setText(data.get(position).getGiaGoc()+"");
         }
       holder.edtSonguoi.setText(data.get(position).getSl_dat_hang()+"");
+        holder.ivTru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentQuantity = sanPham.getSl_dat_hang();
+                if (currentQuantity > 0) {
+                    sanPham.setSl_dat_hang(currentQuantity - 1);
+                    notifyDataSetChanged();
+                }
+            }
+        });
+
+        // Set click listener for ivCong (increment)
+        holder.ivCong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentQuantity = sanPham.getSl_dat_hang();
+                sanPham.setSl_dat_hang(currentQuantity + 1);
+                notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
