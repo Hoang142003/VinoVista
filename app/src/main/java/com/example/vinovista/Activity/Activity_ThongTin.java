@@ -39,7 +39,7 @@ public class Activity_ThongTin extends AppCompatActivity {
     public static String SHARED_PRE = "shared_pre";
     ImageButton imbAnhNhanVienMoi;
     TextView edtTenNv, edtSoDienThoaiNV, edtDiaChi, edtMatKhau, edtLuong;
-    Button btnSave, btnDelete;
+    Button btnSave, btnDelete,btnLogout;
     ProgressBar progressBar_NV;
     NhanVien nhanVien;
     private String anh, type, idNhanVien;
@@ -61,6 +61,29 @@ public class Activity_ThongTin extends AppCompatActivity {
     }
 
     private void setEvent() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(Activity_ThongTin.this)
+                        .setTitle("Đăng xuất")
+                        .setMessage("Bạn có chắc chắn muốn đăng xuất?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences = getSharedPreferences(DangNhap.SHARED_PRE, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.clear();
+                                editor.apply();
+                                finish();
+                                Intent intent = new Intent(Activity_ThongTin.this, DangNhap.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .setIcon(R.drawable.warning)
+                        .show();
+
+            }
+        });
         imbAnhNhanVienMoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +140,7 @@ public class Activity_ThongTin extends AppCompatActivity {
         edtLuong = findViewById(R.id.edtLuong);
         btnSave = findViewById(R.id.btnSave);
         btnDelete = findViewById(R.id.btnDelete);
+        btnLogout=findViewById(R.id.btnLogout);
         progressBar_NV = findViewById(R.id.progressBar_NV);
     }
     void delete(String idNhanVien) {
@@ -152,6 +176,11 @@ public class Activity_ThongTin extends AppCompatActivity {
             }
         }else if (nhanVien==null&&type==null){
             getProfile(idNhanVien);
+            //ẩn các nút
+            btnDelete.setVisibility(View.GONE);
+            btnSave.setVisibility(View.GONE);
+            //hiện nút đăng xuất
+            btnLogout.setVisibility(View.VISIBLE);
         }
     }
 

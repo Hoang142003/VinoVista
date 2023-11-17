@@ -110,5 +110,15 @@
             android:text="Lưu"
             android:textStyle="bold"
             android:textColor="@color/begie" />
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_bg_button"
+            android:text="Đăng xuất"
+            android:textStyle="bold"
+            android:textColor="@color/begie" />
     </LinearLayout>
 </LinearLayout>
