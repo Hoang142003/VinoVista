@@ -107,7 +107,6 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
             tvgia.setPaintFlags(tvgia.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);;
             tvsoluong = itemView.findViewById(R.id.tvSoLuong);
             imganhsp = itemView.findViewById(R.id.imgvSP);
-
         }
     }
 
