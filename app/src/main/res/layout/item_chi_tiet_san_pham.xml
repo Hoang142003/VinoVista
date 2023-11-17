@@ -78,14 +78,19 @@
                 android:text="Giá Sale"
                 android:textColor="@color/black" />
         </LinearLayout>
+<RelativeLayout
+    android:layout_marginLeft="70dp"
+    android:layout_marginTop="30dp"
+    android:layout_width="50dp"
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/imgbAdd"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/add"
+        style="@style/imgbuttonadd" />
+</RelativeLayout>
 
-        <ImageButton
-            android:layout_marginLeft="70dp"
-            android:id="@+id/imgbAdd"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/add"
-            style="@style/imgbuttonadd" />
     </LinearLayout>
 </LinearLayout>
