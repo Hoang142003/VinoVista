@@ -169,7 +169,6 @@ public class trangchusanpham extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(trangchusanpham.this, Activity_ThongTin.class);
-                intent.putExtra("nhan_vien",chiTietDon.getData());
                 startActivity(intent);
             }
         });

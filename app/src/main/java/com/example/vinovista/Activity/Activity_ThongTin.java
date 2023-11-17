@@ -132,25 +132,26 @@ public class Activity_ThongTin extends AppCompatActivity {
         });
     }
     void kiemtra(NhanVien nhanVien, String type) {
-        Log.e("typeScreen", type);
         if (nhanVien != null && type.equals("edit")) {
             fillData(nhanVien);
             //chỉ hiện các nút lưu và xóa
             btnDelete.setVisibility(View.VISIBLE);
             btnSave.setVisibility(View.VISIBLE);
             anh = nhanVien.getAnh(); // Lưu URL ảnh hiện tại
-        } else {
+        } else if (nhanVien!=null&&type!=null){
             if (type.equals("add")) {
                 //ẩn các nút
                 btnDelete.setVisibility(View.GONE);
                 //chỉ hiện nút lưu
                 btnSave.setVisibility(View.VISIBLE);
-            } else if (idNhanVien != null) {
+            } else if (idNhanVien == null) {
                 getProfile(idNhanVien);
                 //ẩn các nút
                 btnDelete.setVisibility(View.GONE);
                 btnSave.setVisibility(View.GONE);
             }
+        }else if (nhanVien==null&&type==null){
+            getProfile(idNhanVien);
         }
     }
 
@@ -182,7 +183,7 @@ public class Activity_ThongTin extends AppCompatActivity {
     }
 
     void getProfile(String idNhanVien) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien").child(idNhanVien);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -191,7 +192,7 @@ public class Activity_ThongTin extends AppCompatActivity {
                     anh = nhanVien1.getAnh();
                     edtTenNv.setText(nhanVien1.getHoTen());
                     edtDiaChi.setText(nhanVien1.getDiaChi());
-                    edtLuong.setText(nhanVien1.getLuong());
+                    edtLuong.setText(String.valueOf(nhanVien1.getLuong()));
                     edtMatKhau.setText(nhanVien1.getMatKhau());
                     edtSoDienThoaiNV.setText(nhanVien1.getSoDienThoai());
                 }
