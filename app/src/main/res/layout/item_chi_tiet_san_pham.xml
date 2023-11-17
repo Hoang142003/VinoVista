@@ -31,8 +31,8 @@
 
             <TextView
                 android:id="@+id/tvTenSP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
                 android:text="Tên dịch vụ"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/black" />
@@ -44,8 +44,8 @@
 
                 <TextView
                     android:id="@+id/tvGiaSP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:text="giá dịch vụ"
                     android:textColor="@color/black" />
@@ -57,6 +57,19 @@
                     android:layout_weight="1"
                     android:text="" />
 
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvGiaSale"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:text="Giá Sale"
+                android:textColor="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,14 +81,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvGiaSale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Giá Sale"
-                android:textColor="@color/black" />
         </LinearLayout>
         <RelativeLayout
             android:layout_marginTop="70dp"

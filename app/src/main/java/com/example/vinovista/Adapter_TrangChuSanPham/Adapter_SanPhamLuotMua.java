@@ -47,9 +47,9 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
         SanPham dataItem = datalist.get(position);
 
         holder.tvten.setText(dataItem.getTenSanPham());
-        holder.tvgia.setText(String.valueOf(dataItem.getGiaGoc()) + " VND");
+        holder.tvgia.setText(String.valueOf(dataItem.getGiaGoc()) + "đ");
         holder.tvsoluong.setText(String.valueOf(dataItem.getSoLuong()));
-        holder.tvgiasale.setText(String.valueOf(dataItem.getGiaSale()) + " VND");
+        holder.tvgiasale.setText(String.valueOf(dataItem.getGiaSale()) + "đ");
         Picasso.get().load(dataItem.getAnhSanPham()).into(holder.imganhsp);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
