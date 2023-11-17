@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/border_item_quanly_san_pham"
-        android:layout_marginEnd="10dp"
-        >
+        android:layout_marginEnd="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +19,7 @@
             android:textColor="@color/white"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:text="Xóa"></TextView>
+            android:text="Xóa"/>
         
     </RelativeLayout>
     <LinearLayout
