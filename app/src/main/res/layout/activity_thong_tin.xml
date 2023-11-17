@@ -17,12 +17,17 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:visibility="gone" />
+
     <ImageButton
         android:id="@+id/imbAnhNhanVienMoi"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:scaleType="centerCrop"
         android:background="@color/begie"
         android:gravity="center_vertical" />
 </RelativeLayout>
