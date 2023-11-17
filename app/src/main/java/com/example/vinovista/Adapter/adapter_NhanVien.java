@@ -69,6 +69,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
             public void onClick(View v) {
                 Intent intent = new Intent(context, Activity_ThongTin.class);
                 intent.putExtra("NhanVien", nhanVien);
+                intent.putExtra("type","edit");
                 context.startActivity(intent);
             }
         });
@@ -111,7 +112,7 @@ public class adapter_NhanVien extends RecyclerView.Adapter<adapter_NhanVien.MyVi
                 danhSachNhanVien.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     NhanVien nhanVien = dataSnapshot.getValue(NhanVien.class);
-                    if (nhanVien != null) {
+                    if (nhanVien != null&&nhanVien.getIdLoaiNhanVien().equals("2")) {
                         danhSachNhanVien.add(nhanVien);
                     }
                 }

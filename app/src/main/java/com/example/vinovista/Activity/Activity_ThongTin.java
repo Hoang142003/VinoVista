@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,9 +22,11 @@ import android.widget.Toast;
 
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -36,10 +39,10 @@ public class Activity_ThongTin extends AppCompatActivity {
     public static String SHARED_PRE = "shared_pre";
     ImageButton imbAnhNhanVienMoi;
     TextView edtTenNv, edtSoDienThoaiNV, edtDiaChi, edtMatKhau, edtLuong;
-    Button btnSave,btnDelete;
+    Button btnSave, btnDelete;
     ProgressBar progressBar_NV;
     NhanVien nhanVien;
-    private String anh;
+    private String anh, type, idNhanVien;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
     private Uri currentImageUri = null;
@@ -51,24 +54,10 @@ public class Activity_ThongTin extends AppCompatActivity {
         setControl();
         setEvent();
         nhanVien = (NhanVien) getIntent().getSerializableExtra("NhanVien");
-        if (nhanVien != null) {
-            fillData(nhanVien);
-            anh = nhanVien.getAnh(); // Lưu URL ảnh hiện tại
-            btnDelete.setVisibility(View.VISIBLE);
-        } else {
-            btnDelete.setVisibility(View.GONE);
-        }
-    }
-    private void setControl() {
-        imbAnhNhanVienMoi = findViewById(R.id.imbAnhNhanVienMoi);
-        edtTenNv = findViewById(R.id.edtTenNv);
-        edtSoDienThoaiNV = findViewById(R.id.edtSoDienThoaiNV);
-        edtDiaChi = findViewById(R.id.edtDiaChi);
-        edtMatKhau = findViewById(R.id.edtMatKhau);
-        edtLuong = findViewById(R.id.edtLuong);
-        btnSave = findViewById(R.id.btnSave);
-        btnDelete=findViewById(R.id.btnDelete);
-        progressBar_NV=findViewById(R.id.progressBar_NV);
+        type = getIntent().getStringExtra("type");
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
+        idNhanVien = sharedPreferences.getString("id_staff", "");
+        kiemtra(nhanVien, type);
     }
 
     private void setEvent() {
@@ -78,7 +67,24 @@ public class Activity_ThongTin extends AppCompatActivity {
                 showImagePickDialog();
             }
         });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(Activity_ThongTin.this)
+                        .setTitle("Xóa tài khoản")
+                        .setMessage("Bạn có chắc chắn muốn xóa nhân viên "+nhanVien.getHoTen()+nhanVien.getSoDienThoai()+" ?")
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                delete(nhanVien.getSoDienThoai());
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .setIcon(R.drawable.warning)
+                        .show();
 
+            }
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,17 +107,56 @@ public class Activity_ThongTin extends AppCompatActivity {
         });
 
     }
+
+    private void setControl() {
+        imbAnhNhanVienMoi = findViewById(R.id.imbAnhNhanVienMoi);
+        edtTenNv = findViewById(R.id.edtTenNv);
+        edtSoDienThoaiNV = findViewById(R.id.edtSoDienThoaiNV);
+        edtDiaChi = findViewById(R.id.edtDiaChi);
+        edtMatKhau = findViewById(R.id.edtMatKhau);
+        edtLuong = findViewById(R.id.edtLuong);
+        btnSave = findViewById(R.id.btnSave);
+        btnDelete = findViewById(R.id.btnDelete);
+        progressBar_NV = findViewById(R.id.progressBar_NV);
+    }
+    void delete(String idNhanVien) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien").child(idNhanVien);
+        databaseReference.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // Xóa thành công
+                Log.d("Delete Node", "Node successfully deleted.");
+            } else {
+                // Xử lý lỗi
+                Log.e("Delete Node", "Failed to delete node.", task.getException());
+            }
+        });
+    }
+    void kiemtra(NhanVien nhanVien, String type) {
+        Log.e("typeScreen", type);
+        if (nhanVien != null && type.equals("edit")) {
+            fillData(nhanVien);
+            //chỉ hiện các nút lưu và xóa
+            btnDelete.setVisibility(View.VISIBLE);
+            btnSave.setVisibility(View.VISIBLE);
+            anh = nhanVien.getAnh(); // Lưu URL ảnh hiện tại
+        } else {
+            if (type.equals("add")) {
+                //ẩn các nút
+                btnDelete.setVisibility(View.GONE);
+                //chỉ hiện nút lưu
+                btnSave.setVisibility(View.VISIBLE);
+            } else if (idNhanVien != null) {
+                getProfile(idNhanVien);
+                //ẩn các nút
+                btnDelete.setVisibility(View.GONE);
+                btnSave.setVisibility(View.GONE);
+            }
+        }
+    }
+
+
     //sửa thông tin nhân viên
     void fillData(NhanVien nhanVien) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
-        String chuc_vu= sharedPreferences.getString("chuc_vu_auto", "");
-        if (chuc_vu.equals("Quản ly")){
-            edtTenNv.setEnabled(true);
-            edtLuong.setEnabled(true);
-        }else if (chuc_vu.equals("Nhân viên")){
-            edtTenNv.setEnabled(false);
-            edtLuong.setEnabled(false);
-        }
         edtTenNv.setText(nhanVien.getHoTen());
         edtLuong.setText(String.valueOf(nhanVien.getLuong()));
         edtDiaChi.setText(nhanVien.getDiaChi());
@@ -129,9 +174,32 @@ public class Activity_ThongTin extends AppCompatActivity {
             @Override
             public void onError(Exception e) {
                 // Có lỗi khi tải ảnh, ẩn ProgressBar và có thể hiển thị ảnh lỗi
-               // progressBar_NV.setVisibility(View.GONE);
+                // progressBar_NV.setVisibility(View.GONE);
                 // Set ảnh lỗi nếu có
                 imbAnhNhanVienMoi.setImageResource(R.drawable.person);
+            }
+        });
+    }
+
+    void getProfile(String idNhanVien) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NhanVien");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    NhanVien nhanVien1 = snapshot.getValue(NhanVien.class);
+                    anh = nhanVien1.getAnh();
+                    edtTenNv.setText(nhanVien1.getHoTen());
+                    edtDiaChi.setText(nhanVien1.getDiaChi());
+                    edtLuong.setText(nhanVien1.getLuong());
+                    edtMatKhau.setText(nhanVien1.getMatKhau());
+                    edtSoDienThoaiNV.setText(nhanVien1.getSoDienThoai());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -232,7 +300,8 @@ public class Activity_ThongTin extends AppCompatActivity {
         String matKhau = edtMatKhau.getText().toString();
         String luong = edtLuong.getText().toString();
         int luongInt = luong.isEmpty() ? 0 : Integer.parseInt(luong);
+        String loaiNhanVien="2";
 
-        return new NhanVien(soDienThoai, ten, matKhau, diaChi, anhIm, "1", luongInt);
+        return new NhanVien(soDienThoai, ten, matKhau, diaChi, anhIm, loaiNhanVien, luongInt);
     }
 }

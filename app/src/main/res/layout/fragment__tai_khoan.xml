@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.Fragment_TaiKhoan">
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ProgressBar
+            android:id="@+id/progressBar_NV_profile_xx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+        <ImageButton
+            android:id="@+id/imbAnhNhanVienMoi_NV_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"
+            android:background="@color/begie"
+            android:gravity="center_vertical" />
+    </RelativeLayout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/edtTenNv_NV_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_bg_edittext"
+        android:hint="Nhập tên nhân viên"
+        android:padding="10dp" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edtSoDienThoaiNV_NV_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_bg_edittext"
+        android:hint="Nhập số điện thoại"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/edtDiaChi_NV_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_bg_edittext"
+        android:hint="Nhập địa chỉ"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/edtMatKhau_NV_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_bg_edittext"
+        android:hint="Nhập mật khẩu"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/edtLuong_NV_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_bg_edittext"
+        android:hint="Nhập lương"
+        android:inputType="number"
+        android:padding="10dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:layout_gravity="center_horizontal">
+        <Button
+            android:id="@+id/btnSave_NV_profile"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_bg_button"
+            android:text="Lưu"
+            android:textStyle="bold"
+            android:textColor="@color/begie" />
+        <Button
+            android:id="@+id/btnLogout_NV_profile"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_bg_button"
+            android:text="Đăng xuất"
+            android:textStyle="bold"
+            android:textColor="@color/begie" />
+    </LinearLayout>
+</LinearLayout>
