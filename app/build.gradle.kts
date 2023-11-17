@@ -67,4 +67,8 @@ dependencies {
     implementation("javax.xml.stream:stax-api:1.0")
 
     implementation("org.apache.xmlbeans:xmlbeans:3.1.0")
+
+    //thông báo
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.android.volley:volley:1.2.1")
 }

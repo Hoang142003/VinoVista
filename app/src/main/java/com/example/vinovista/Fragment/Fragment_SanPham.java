@@ -68,6 +68,7 @@ public class Fragment_SanPham extends Fragment implements SwipeRefreshLayout.OnR
     EditText edtTimKiem;
     RelativeLayout root_view;
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;

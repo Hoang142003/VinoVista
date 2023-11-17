@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.vinovista.Adapter.Adapter_ChiTietHoaDon;
 import com.example.vinovista.Adapter.Adapter_ThanhToan_Hoadon;
 import com.example.vinovista.Adapter_TrangChuSanPham.Adapter_ChiTietDon;
+import com.example.vinovista.Messaging.Notification;
 import com.example.vinovista.Model.ChiTietHoaDon;
 import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.Model.SanPham;
@@ -202,6 +203,8 @@ public class Activity_ThanhToan extends AppCompatActivity {
         btn_Thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Notification.setContext(Activity_ThanhToan.this);
+                Notification.getSendNotificationOrderSuccessFull("cV-Miq4LQPWZmnf9fMETJ_:APA91bHZlgpy641dKbACi4Tytmj0VMBTzFBTREyCR0THKjTmnmxPfCpNUQ6-NH5PAyn1ySs4TdU9Y_JiXTBlwhxMR_kS1YIfWmH_0BqG10tsaQRmpieGUDL0wA5m9GBMVHKbYd0A1WqY","Thanh toán","Có hóa đơn mới","normal");
                 if (edtTenKhachHang.getText().toString().trim().isEmpty()) {
                     edtTenKhachHang.setFocusable(true);
                     edtTenKhachHang.setError("Vui lòng điền đủ thông tin");
