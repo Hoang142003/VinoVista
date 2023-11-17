@@ -58,6 +58,15 @@ public class Activity_ThongTin extends AppCompatActivity {
         } else {
             btnDelete.setVisibility(View.GONE);
         }
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
+        String chuc_vu= sharedPreferences.getString("chuc_vu_auto", "");
+        if (chuc_vu.equals("Quản ly")){
+            edtTenNv.setEnabled(true);
+            edtLuong.setEnabled(true);
+        }else if (chuc_vu.equals("Nhân viên")){
+            edtTenNv.setEnabled(false);
+            edtLuong.setEnabled(false);
+        }
     }
     private void setControl() {
         imbAnhNhanVienMoi = findViewById(R.id.imbAnhNhanVienMoi);
@@ -103,15 +112,6 @@ public class Activity_ThongTin extends AppCompatActivity {
     }
     //sửa thông tin nhân viên
     void fillData(NhanVien nhanVien) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
-        String chuc_vu= sharedPreferences.getString("chuc_vu_auto", "");
-        if (chuc_vu.equals("Quản ly")){
-            edtTenNv.setEnabled(true);
-            edtLuong.setEnabled(true);
-        }else if (chuc_vu.equals("Nhân viên")){
-            edtTenNv.setEnabled(false);
-            edtLuong.setEnabled(false);
-        }
         edtTenNv.setText(nhanVien.getHoTen());
         edtLuong.setText(String.valueOf(nhanVien.getLuong()));
         edtDiaChi.setText(nhanVien.getDiaChi());
