@@ -52,7 +52,32 @@
                 android:layout_marginRight="0dp"
                 android:layout_marginBottom="20dp"
                 android:inputType="number" />
+            <TextView
+                style="@style/TextView_QuanLyHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="Nhập voucher" />
 
+            <EditText
+                android:id="@+id/edt_voucher"
+                style="@style/edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="10dp"
+                android:imeOptions="actionDone"
+                android:inputType="text"/>
+            <TextView
+                android:id="@+id/tv_giamgia"
+                style="@style/TextView_QuanLyHoaDon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đã áp dụng voucher giảm giá: 25%"
+                android:textColor="@color/red"
+                android:textStyle="bold|italic"
+                android:visibility="gone"/>
             <TextView
                 style="@style/TextView_QuanLyHoaDon"
                 android:layout_width="match_parent"

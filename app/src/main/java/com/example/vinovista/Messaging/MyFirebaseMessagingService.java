@@ -11,6 +11,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.example.vinovista.Activity.Activity_Menu;
 import com.example.vinovista.Fragment.Fragment_HoaDon;
 import com.example.vinovista.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -41,7 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String title, String strMessage, String notificationType) {
-        Intent intent = new Intent(this, Fragment_HoaDon.class);
+        Intent intent = new Intent(this, Activity_Menu.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder notificationCompat = new NotificationCompat.Builder(this,"normal")
                     .setContentTitle(title)

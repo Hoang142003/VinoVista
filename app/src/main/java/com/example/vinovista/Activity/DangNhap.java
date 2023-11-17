@@ -38,6 +38,7 @@ public class DangNhap extends AppCompatActivity {
     public static String SHARED_PRE = "shared_pre";
     public static String id_staff = "id_staff";
     public static String name_staff = "name_staff";
+    public static String token = "name_staff";
     public static String chuc_vu_auto = "chuc_vu_auto";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +48,18 @@ public class DangNhap extends AppCompatActivity {
         AutoLogin();
         setControl();
         setEvent();
-        getAndSaveFCMToken();
+
 
     }
-    private void getAndSaveFCMToken() {
+    private void getAndSaveFCMToken(String id_staff) {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (task.isSuccessful() && task.getResult() != null) {
                            System.out.println(task.getResult());
+                           DatabaseReference reference=FirebaseDatabase.getInstance().getReference("NhanVien");
+                           reference.child(id_staff).child("token").setValue(task.getResult());
                         } else {
                             System.out.println("Không lấy và lưu được fcm token");
                         }
@@ -116,6 +119,7 @@ public class DangNhap extends AppCompatActivity {
                                                     editor.putString(name_staff, nhanVien.getHoTen());
                                                     editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
                                                     editor.apply();
+                                                    getAndSaveFCMToken(nhanVien.getSoDienThoai());
                                                     Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
                                                     startActivity(intent);
                                                     finish();
@@ -213,6 +217,7 @@ public class DangNhap extends AppCompatActivity {
                                                     editor.putString(name_staff, nhanVien.getHoTen());
                                                     editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
                                                     editor.apply();
+                                                    getAndSaveFCMToken(nhanVien.getSoDienThoai());
                                                     Intent intent = new Intent(DangNhap.this, trangchusanpham.class);
                                                     startActivity(intent);
                                                     finish();
