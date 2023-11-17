@@ -15,6 +15,9 @@
         android:theme="@style/Theme.VinoVista"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ThongTinHoaDon"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Activity_ThanhToan"
             android:exported="false" />
         <activity
