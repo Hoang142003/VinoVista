@@ -77,7 +77,6 @@ public class Fragment_NhanVien extends Fragment {
         setControl(view);
         adapter = new adapter_NhanVien(getContext(),progressBar_danhsachnhanvien);
         setEvent();
-        Log.e("soLuong", adapter.getItemCount() + "");
 
         return view;
     }
@@ -90,6 +89,7 @@ public class Fragment_NhanVien extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getContext(), Activity_ThongTin.class);
+                intent.putExtra("type","add");
                 getContext().startActivity(intent);
             }
         });
