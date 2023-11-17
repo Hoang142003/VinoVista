@@ -86,8 +86,6 @@ public class Fragment_HoaDon extends Fragment {
         View view = inflater.inflate(R.layout.fragment__hoa_don, container, false);
         setControl(view);
         setEvent();
-//        mDatabase = FirebaseDatabase.getInstance().getReference("a");
-//        mDatabase.setValue("a");
         return view;
     }
 

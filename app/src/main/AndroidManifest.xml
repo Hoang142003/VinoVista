@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,13 +15,16 @@
         android:theme="@style/Theme.VinoVista"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ThongTinHoaDon"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Activity_ThanhToan"
             android:exported="false" />
-        <!-- <activity -->
-        <!-- android:name=".Activity.DangNhap" -->
-        <!-- android:exported="false" /> -->
         <activity
-            android:name=".Activity.ActivityQuanLyNhanVien"
+            android:name=".Adapter_TrangChuSanPham.trangchusanpham"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Activity_ThongTin"
             android:exported="false" />
         <activity
             android:name=".Activity.Xac_Thuc_OTP"
@@ -42,10 +45,7 @@
             android:name=".Adapter_TrangChuSanPham.chitietsanpham"
             android:exported="false" />
         <activity
-            android:name=".Adapter_TrangChuSanPham.chitietdonsanpham"
-            android:exported="false" />
-        <activity
-            android:name=".Adapter_TrangChuSanPham.trangchusanpham"
+            android:name=".Activity.DangNhap"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

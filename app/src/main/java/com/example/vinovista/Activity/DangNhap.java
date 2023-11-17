@@ -2,9 +2,13 @@ package com.example.vinovista.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vinovista.Adapter_TrangChuSanPham.trangchusanpham;
 import com.example.vinovista.Model.LoaiNhanVien;
 import com.example.vinovista.Model.NhanVien;
 import com.example.vinovista.R;
@@ -35,11 +40,12 @@ public class DangNhap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
+
         AutoLogin();
         setControl();
         setEvent();
-    }
 
+    }
     private void setEvent() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("NhanVien");
         DatabaseReference reference_loainv = FirebaseDatabase.getInstance().getReference("LoaiNhanVien");
@@ -90,6 +96,7 @@ public class DangNhap extends AppCompatActivity {
                                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                                     editor.putString(id_staff, nhanVien.getSoDienThoai());
+                                                    editor.putString(name_staff, nhanVien.getHoTen());
                                                     editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
                                                     editor.apply();
                                                     Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
@@ -185,9 +192,10 @@ public class DangNhap extends AppCompatActivity {
                                                     SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                                     editor.putString(id_staff, nhanVien.getSoDienThoai());
+                                                    editor.putString(name_staff, nhanVien.getHoTen());
                                                     editor.putString(chuc_vu_auto, loaiNhanVien.getTenLoaiNhanVien());
                                                     editor.apply();
-                                                    Intent intent = new Intent(DangNhap.this, DangNhap.class);
+                                                    Intent intent = new Intent(DangNhap.this, trangchusanpham.class);
                                                     startActivity(intent);
                                                 } else {
                                                     btnbanhang.setVisibility(View.VISIBLE);
@@ -247,13 +255,13 @@ public class DangNhap extends AppCompatActivity {
         String chuc_vu_auto = sharedPreferences.getString("chuc_vu_auto", "");
         switch (chuc_vu_auto.toLowerCase()) {
             case "quản lý":
-                Intent intent_laocong = new Intent(DangNhap.this, DangNhap.class);
+                Intent intent_laocong = new Intent(DangNhap.this, Activity_Menu.class);
                 intent_laocong.putExtra("id_staff", id_staff_auto);
                 startActivity(intent_laocong);
                 finish();
                 break;
             case "nhân viên":
-                Intent intent_letan = new Intent(DangNhap.this, DangNhap.class);
+                Intent intent_letan = new Intent(DangNhap.this, trangchusanpham.class);
                 intent_letan.putExtra("id_staff", id_staff_auto);
                 startActivity(intent_letan);
                 finish();
