@@ -1,9 +1,10 @@
 package com.example.vinovista.Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DanhMuc {
+public class  DanhMuc implements Serializable {
     String idDanhMuc,tenDanhMuc,anh;
 
     public String getIdDanhMuc() {
@@ -33,7 +34,7 @@ public class DanhMuc {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("tenDanhMuc", tenDanhMuc);
-        result.put("anh", anh);
+        result.put("anhSanPham", anh);
 
         return result;
     }
@@ -43,7 +44,7 @@ public class DanhMuc {
         return "danhMuc{" +
                 "idDanhMuc='" + idDanhMuc + '\'' +
                 ", tenDanhMuc='" + tenDanhMuc + '\'' +
-                ", anh='" + anh + '\'' +
+                ", anhSanPham='" + anh + '\'' +
                 '}';
     }
 

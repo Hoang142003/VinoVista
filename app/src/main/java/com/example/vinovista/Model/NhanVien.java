@@ -3,16 +3,17 @@ package com.example.vinovista.Model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NhanVien implements Serializable {
-    String soDienThoai, matKhau, diaChi, anh, hoTen,idLoaiNhanVien;
-        double luong;
+    String soDienThoai, matKhau, diaChi, anh, hoTen, idLoaiNhanVien;
+    int luong;
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("matKhau", matKhau);
         result.put("diaChi", diaChi);
-        result.put("anh", anh);
+        result.put("anhSanPham", anh);
         result.put("hoTen", hoTen);
         result.put("luong", luong);
         result.put("idLoaiNhanVien", idLoaiNhanVien);
@@ -25,7 +26,7 @@ public class NhanVien implements Serializable {
                 "soDienThoai='" + soDienThoai + '\'' +
                 ", matKhau='" + matKhau + '\'' +
                 ", diaChi='" + diaChi + '\'' +
-                ", anh='" + anh + '\'' +
+                ", anhSanPham='" + anh + '\'' +
                 ", hoTen='" + hoTen + '\'' +
                 ", idLoaiNhanVien='" + idLoaiNhanVien + '\'' +
                 ", luong=" + luong +
@@ -35,7 +36,28 @@ public class NhanVien implements Serializable {
     public NhanVien() {
     }
 
-    public NhanVien(String soDienThoai, String matKhau, String diaChi, String anh, String hoTen, String idLoaiNhanVien, double luong) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NhanVien)) return false;
+        NhanVien nhanVien = (NhanVien) o;
+        return getSoDienThoai().equals(nhanVien.getSoDienThoai());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSoDienThoai());
+    }
+
+    public String getIdLoaiNhanVien() {
+        return idLoaiNhanVien;
+    }
+
+    public void setIdLoaiNhanVien(String idLoaiNhanVien) {
+        this.idLoaiNhanVien = idLoaiNhanVien;
+    }
+
+    public NhanVien(String soDienThoai, String hoTen, String matKhau, String diaChi, String anh, String idLoaiNhanVien, int luong) {
         this.soDienThoai = soDienThoai;
         this.matKhau = matKhau;
         this.diaChi = diaChi;
@@ -85,11 +107,11 @@ public class NhanVien implements Serializable {
         this.hoTen = hoTen;
     }
 
-    public double getLuong() {
+    public int getLuong() {
         return luong;
     }
 
-    public void setLuong(double luong) {
+    public void setLuong(int luong) {
         this.luong = luong;
     }
 }

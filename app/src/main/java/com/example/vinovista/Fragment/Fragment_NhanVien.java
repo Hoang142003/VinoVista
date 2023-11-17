@@ -1,13 +1,22 @@
 package com.example.vinovista.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
+import com.example.vinovista.Activity.Activity_ThongTin;
+import com.example.vinovista.Adapter.adapter_NhanVien;
 import com.example.vinovista.R;
 
 /**
@@ -57,10 +66,38 @@ public class Fragment_NhanVien extends Fragment {
         }
     }
 
+    RecyclerView rcvDanhSachNhanVien;
+    private adapter_NhanVien adapter;
+    LinearLayout llThemNhanVien;
+    ProgressBar progressBar_danhsachnhanvien;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__nhan_vien, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment__nhan_vien, container, false);
+        setControl(view);
+        adapter = new adapter_NhanVien(getContext(),progressBar_danhsachnhanvien);
+        setEvent();
+        Log.e("soLuong", adapter.getItemCount() + "");
+
+        return view;
+    }
+
+    private void setEvent() {
+        rcvDanhSachNhanVien.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        rcvDanhSachNhanVien.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        rcvDanhSachNhanVien.setAdapter(adapter);
+        llThemNhanVien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), Activity_ThongTin.class);
+                getContext().startActivity(intent);
+            }
+        });
+    }
+
+    private void setControl(View view) {
+        rcvDanhSachNhanVien = view.findViewById(R.id.rcvDanhSachNhanVien);
+        llThemNhanVien = view.findViewById(R.id.llThemNhanVien);
+        progressBar_danhsachnhanvien=view.findViewById(R.id.progressBar_danhsachnhanvien);
     }
 }

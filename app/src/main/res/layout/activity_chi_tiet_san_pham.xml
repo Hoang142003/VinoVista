@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <ImageButton
+            android:id="@+id/imvbQuaylai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:background="@null"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imgthemSP"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:padding="1.5dp"
+        android:scaleType="centerCrop" />
+    <TextView
+        android:id="@+id/tvTenSpchitiet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Champange Cuvee William Deutz"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/blue"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvGiaSp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3990000"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" đ"
+            android:textSize="25sp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:id="@+id/btnThem"
+            style="@style/btnTiepTuc"
+            android:text="Thêm"/>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/tvMota"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mang màu đồng với sự phản chiếu ánh vàng. Mùi thơm phong phú, dễ chịu nhưng phức hợp, phát triển các mùi hương cây táo gao, mận tây mirabelle và quả cherries vàng. Hơi cay, với một chút vị cam thảo, đánh thức các giác quan. Ấn tượng đầu trong khuôn miệng cực kỳ mượt mà. Một loại champagne duyên dáng, mang đầy hương vị hoa quả mùa hè và được hỗ trợ bởi vị khoáng hấp dẫn. Cân bằng hoàn hảo."
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvSanPhamDanhMuc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
