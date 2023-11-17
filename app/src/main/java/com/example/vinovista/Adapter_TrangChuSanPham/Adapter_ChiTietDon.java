@@ -72,8 +72,18 @@ public class Adapter_ChiTietDon extends RecyclerView.Adapter<Adapter_ChiTietDon.
                 notifyDataSetChanged();
             }
         });
+        holder.imgbDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Remove the item from the data list
+                data.remove(position);
 
+                // Notify the adapter that an item has been removed
+                notifyItemRemoved(position);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
