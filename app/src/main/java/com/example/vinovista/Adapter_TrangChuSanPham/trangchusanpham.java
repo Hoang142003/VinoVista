@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.vinovista.Activity.Activity_ThanhToan;
+import com.example.vinovista.Activity.Activity_ThongTin;
 import com.example.vinovista.Adapter.Photo_Adapter;
 import com.example.vinovista.Model.SanPham;
 import com.example.vinovista.R;
@@ -42,7 +44,7 @@ public class trangchusanpham extends AppCompatActivity {
     CircleIndicator3 ci;
     ArrayList<String> sanPhams = new ArrayList<>();
     Button btnTiepTuc,btnHuy;
-
+    ImageButton profile;
     ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
 
     @Override
@@ -125,28 +127,6 @@ public class trangchusanpham extends AppCompatActivity {
         rcvChiTietDon.setAdapter(chiTietDon);
     }
     private void AutoSlideImage() {
-//        if(mTimer==null){
-//            mTimer=new Timer();
-//        }
-//        mTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                new Handler(Looper.getMainLooper()).post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        int curentItem=vpiv.getCurrentItem();
-//                        int totalItem=5-1;
-//                        if(curentItem<totalItem){
-//                            curentItem++;
-//                            vpiv.setCurrentItem(curentItem);
-//                        }
-//                        else{
-//                            vpiv.setCurrentItem(0);
-//                        }
-//                    }
-//                });
-//            }
-//        },500,3000);
         Handler handler = new Handler(Looper.getMainLooper());
         Runnable runnable = new Runnable() {
             @Override
@@ -185,9 +165,18 @@ public class trangchusanpham extends AppCompatActivity {
                 sanPhamAdapter.notifyDataSetChanged();
             }
         });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(trangchusanpham.this, Activity_ThongTin.class);
+                intent.putExtra("nhan_vien",chiTietDon.getData());
+                startActivity(intent);
+            }
+        });
     }
 
     private void setContent() {
+        profile = findViewById(R.id.btnProfile);
         rcvSPbanchay = findViewById(R.id.rcvSanPhamBanCHay);
         btnHuy = findViewById(R.id.btnHuy);
         rcvChiTietDon = findViewById(R.id.rcvChiTietDon);
