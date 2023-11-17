@@ -79,7 +79,9 @@
                 android:textColor="@color/black" />
         </LinearLayout>
 <RelativeLayout
-    android:layout_width="match_parent"
+    android:layout_marginLeft="70dp"
+    android:layout_marginTop="30dp"
+    android:layout_width="50dp"
     android:layout_height="wrap_content">
     <ImageButton
         android:id="@+id/imgbAdd"
