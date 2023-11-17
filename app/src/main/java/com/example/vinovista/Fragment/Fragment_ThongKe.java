@@ -3,12 +3,21 @@ package com.example.vinovista.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vinovista.R;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,7 @@ import com.example.vinovista.R;
  * create an instance of this fragment.
  */
 public class Fragment_ThongKe extends Fragment {
+    private BarChart barChart;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +71,34 @@ public class Fragment_ThongKe extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__thong_ke, container, false);
+        View view = inflater.inflate(R.layout.fragment__thong_ke, container, false);
+        setControl(view);
+        setEvent();
+        return view;
+    }
+
+    private void setEvent() {
+        // Tạo dữ liệu cho biểu đồ thống kê (Ví dụ: dữ liệu ngẫu nhiên)
+        List<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(1, 50));
+        entries.add(new BarEntry(2, 70));
+        entries.add(new BarEntry(3, 30));
+        entries.add(new BarEntry(4, 90));
+        entries.add(new BarEntry(5, 60));
+
+        BarDataSet dataSet = new BarDataSet(entries, "Doanh số theo tháng");
+
+        BarData barData = new BarData(dataSet);
+
+        // Cấu hình biểu đồ
+        barChart.setData(barData);
+        barChart.setDrawValueAboveBar(true);
+        barChart.getDescription().setEnabled(false);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.animateY(1000);
+    }
+
+    private void setControl(View view) {
+        barChart = view.findViewById(R.id.barChart);
     }
 }
