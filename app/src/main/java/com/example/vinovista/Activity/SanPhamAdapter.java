@@ -1,5 +1,7 @@
 package com.example.vinovista.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,9 +23,11 @@ import java.util.List;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
     private List<SanPham> sanPhamRuouList;
+    private Context context;
     private int viTri= RecyclerView.NO_POSITION;
-    public SanPhamAdapter(List<SanPham> sanPhamRuouList) {
+    public SanPhamAdapter(List<SanPham> sanPhamRuouList, Context context) {
         this.sanPhamRuouList = sanPhamRuouList;
+        this.context = context;
     }
 
     @NonNull
@@ -53,7 +57,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent mnSuaDanhMuc = new Intent(context, Activity_Sua_San_Pham.class);
+                mnSuaDanhMuc.putExtra("id_san_pham",sanPham);
+                context.startActivity(mnSuaDanhMuc);
             }
         });
 

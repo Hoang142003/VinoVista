@@ -141,7 +141,7 @@ public class Fragment_SanPham extends Fragment implements SwipeRefreshLayout.OnR
         spnDanhMuc.setAdapter(danhMucSpinerAdapter);
         sanPhamRuouList = new ArrayList<>();
         LoadSanPham();
-        sanPhamAdapter = new SanPhamAdapter(sanPhamRuouList);
+        sanPhamAdapter = new SanPhamAdapter(sanPhamRuouList, getActivity());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvSanPham.setLayoutManager(linearLayoutManager);
         RecyclerView.ItemDecoration decoration = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
