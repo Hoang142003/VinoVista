@@ -56,7 +56,31 @@ public class ThongTinHoaDon extends AppCompatActivity {
         edtTenKhachHang.setText(hoaDon.getTenKhachHang());
         edtSoDienThoai.setText(hoaDon.getSoDienThoai());
         tvTongHD.setText(hoaDon.getTongHoaDon() + "đ");
-        tvNhanVien.setText(hoaDon.getNhanVien());
+        // Lấy mã Nhân viên từ hóa đơn
+        String maNhanVien = hoaDon.getNhanVien();
+
+        // Khởi tạo tham chiếu đến cơ sở dữ liệu Firebase
+        DatabaseReference nhanVienRef = FirebaseDatabase.getInstance().getReference("NhanVien");
+
+        // Thực hiện truy vấn để lấy tên Nhân viên
+        nhanVienRef.child(maNhanVien).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Lấy tên Nhân viên từ dataSnapshot
+                    String tenNhanVien = dataSnapshot.child("hoTen").getValue(String.class);
+
+                    // Hiển thị tên Nhân viên lên TextView tvNhanVien
+                    tvNhanVien.setText(tenNhanVien + " - " + hoaDon.getNhanVien());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
+
         tvNgayLap.setText((hoaDon.getNgayMua()));
 
         // Giả sử bạn có phương thức này để lấy danh sách chi tiết hóa đơn dựa trên id_hoadon
