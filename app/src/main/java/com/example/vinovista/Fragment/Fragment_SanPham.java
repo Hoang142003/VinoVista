@@ -15,13 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vinovista.Activity.Activity_Quan_Ly_Danh_Muc;
@@ -112,6 +115,16 @@ public class Fragment_SanPham extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void setEvent(View view) {
+        edtTimKiem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    TimKiemTheoTen();
+                    return true;
+                }
+                return false;
+            }
+        });
         btnSanPhamMoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -259,5 +272,31 @@ public class Fragment_SanPham extends Fragment implements SwipeRefreshLayout.OnR
             }
         });
         sanPhamAdapter.notifyItemRemoved(index);
+    }
+    private void TimKiemTheoTen()
+    {
+        if(!edtTimKiem.getText().toString().equals("")) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("SanPham");
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    sanPhamRuouList.clear();
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        SanPham sanPhamRuou = dataSnapshot.getValue(SanPham.class);
+                        if (sanPhamRuou.getTenSanPham().toString().equals(edtTimKiem.getText().toString())) {
+                            sanPhamRuouList.add(sanPhamRuou);
+                        }
+
+                    }
+                    sanPhamAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 }
