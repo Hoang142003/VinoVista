@@ -2,6 +2,7 @@ package com.example.vinovista.Adapter_TrangChuSanPham;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,6 +104,7 @@ public class Adapter_SanPhamLuotMua extends RecyclerView.Adapter<Adapter_SanPham
             tvgiasale = itemView.findViewById(R.id.tvGiaSale);
             tvten = itemView.findViewById(R.id.tvTenSP);
             tvgia = itemView.findViewById(R.id.tvGiaSP);
+            tvgia.setPaintFlags(tvgia.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);;
             tvsoluong = itemView.findViewById(R.id.tvSoLuong);
             imganhsp = itemView.findViewById(R.id.imgvSP);
 
