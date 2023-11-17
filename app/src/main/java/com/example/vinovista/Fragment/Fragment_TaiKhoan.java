@@ -90,15 +90,17 @@ public class Fragment_TaiKhoan extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     public static String SHARED_PRE = "shared_pre";
     ImageButton imbAnhNhanVienMoi;
     TextView edtTenNv, edtSoDienThoaiNV, edtDiaChi, edtMatKhau, edtLuong;
     Button btnSave, btnLogout;
     ProgressBar progressBar_NV;
-    private String anh, idNhanVien;
+    private String anh, idNhanVien, chucvu;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
     private Uri currentImageUri = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__tai_khoan, container, false);
@@ -108,8 +110,12 @@ public class Fragment_TaiKhoan extends Fragment {
         if (getActivity() != null) {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PRE, MODE_PRIVATE);
             idNhanVien = sharedPreferences.getString("id_staff", "");
+            chucvu = sharedPreferences.getString("chuc_vu_auto", "");
             if (!idNhanVien.isEmpty()) {
                 getProfile(idNhanVien);
+                edtLuong.setEnabled(false);
+                edtSoDienThoaiNV.setEnabled(false);
+                edtTenNv.setEnabled(false);
             }
         }
 
