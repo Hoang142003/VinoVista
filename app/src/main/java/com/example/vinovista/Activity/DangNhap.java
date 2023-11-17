@@ -101,6 +101,7 @@ public class DangNhap extends AppCompatActivity {
                                                     editor.apply();
                                                     Intent intent = new Intent(DangNhap.this, Activity_Menu.class);
                                                     startActivity(intent);
+                                                    finish();
                                                 } else {
                                                     btnbanhang.setVisibility(View.VISIBLE);
                                                     btnquanly.setVisibility(View.VISIBLE);
@@ -197,6 +198,7 @@ public class DangNhap extends AppCompatActivity {
                                                     editor.apply();
                                                     Intent intent = new Intent(DangNhap.this, trangchusanpham.class);
                                                     startActivity(intent);
+                                                    finish();
                                                 } else {
                                                     btnbanhang.setVisibility(View.VISIBLE);
                                                     btnquanly.setVisibility(View.VISIBLE);
