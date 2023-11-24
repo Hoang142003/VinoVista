@@ -14,15 +14,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.vinovista.Model.ChiTietHoaDon;
 import com.example.vinovista.Model.HoaDon;
 import com.example.vinovista.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -90,6 +96,7 @@ public class Fragment_ThongKe extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__thong_ke, container, false);
+
         setControl(view);
         setEvent();
         return view;
@@ -156,6 +163,83 @@ public class Fragment_ThongKe extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Xử lý khi không có mục nào được chọn
+            }
+        });
+
+        loadProductNames();
+        calculateSalesByProduct();
+    }
+
+    private void calculateSalesByProduct() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference chiTietHoaDonRef = database.getReference("ChiTietHoaDon");
+
+        chiTietHoaDonRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String, Integer> productSales = new HashMap<>();
+
+                for (DataSnapshot idHoaDonSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot idSanPhamSnapshot : idHoaDonSnapshot.getChildren()) {
+                        ChiTietHoaDon chiTiet = idSanPhamSnapshot.getValue(ChiTietHoaDon.class);
+                        if (chiTiet != null) {
+                            String productId = chiTiet.getIdSanPham();
+                            Integer quantity = chiTiet.getSoLuong();
+
+                            productSales.merge(productId, quantity, Integer::sum);
+                        }
+                    }
+                }
+
+                displayPieChart(productSales);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
+
+    private void displayPieChart(Map<String, Integer> productSales) {
+        List<PieEntry> entries = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : productSales.entrySet()) {
+            // Sử dụng productNameMap để lấy tên sản phẩm từ ID
+            String productName = productNameMap.getOrDefault(entry.getKey(), "Không xác định");
+            entries.add(new PieEntry(entry.getValue(), productName));
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Số Lượng Bán Ra Theo Sản Phẩm");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        PieData pieData = new PieData(dataSet);
+
+        PieChart pieChart = getView().findViewById(R.id.pieChart);
+        pieChart.setData(pieData);
+        pieChart.invalidate(); // Cập nhật biểu đồ
+    }
+
+    private Map<String, String> productNameMap = new HashMap<>();
+
+    private void loadProductNames() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference sanPhamRef = database.getReference("SanPham");
+
+        sanPhamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String productId = snapshot.getKey();
+                    String productName = snapshot.child("tenSanPham").getValue(String.class);
+                    productNameMap.put(productId, productName);
+                }
+                // Gọi phương thức để hiển thị biểu đồ sau khi tải xong tên sản phẩm
+                calculateSalesByProduct();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
             }
         });
     }
